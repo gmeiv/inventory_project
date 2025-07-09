@@ -34,8 +34,6 @@
                 industries of Region III, obtain patents and publish research recognized locally and internationally, and facilitate 
                 technology transfer to clients and beneficiaries—ultimately enhancing the work and environment across sectors such as academia, 
                 business, manufacturing, healthcare, military, and disaster-risk management.
-
-
             </p>
         </div>
 
@@ -48,7 +46,7 @@
                     <li>PCB Fabrication</li>
                     <li>Robotics Training</li>
                     <li>Automation Solutions</li>
-                    <li></li>
+
                 </ul>
             </div>
         </td>
