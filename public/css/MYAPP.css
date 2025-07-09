@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #0a2c4d, #004080);
+    color: white;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(to right, #003366, #0059b3);
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.grid-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 40px 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.grid-item {
+    background-color: #003366;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.grid-item i {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.grid-item:hover {
+    background-color: #0059b3;
+    transform: scale(1.05);
+}
+
+.footer {
+    background-color: #00264d;
+    padding: 10px 20px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #cce6ff;
+}
+
+
+@media (max-width: 768px) {
+    .grid-item {
+        font-size: 1rem;
+        padding: 20px;
+    }
+    .grid-item i {
+        font-size: 1.4rem;
+    }
+    .header {
+        font-size: 1.5rem;
+    }
+}
+

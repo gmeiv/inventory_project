@@ -1,0 +1,198 @@
+body {
+    background-color: #001f3f;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.items-wrapper {
+    max-width: 90%;
+    margin: 100px auto 60px auto;
+    padding: 20px;
+    background: #002b5c;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 2.2rem;
+    color: #66ccff;
+    text-align: center;
+    flex: 1 1 100%;
+    margin-bottom: 15px;
+}
+
+#searchInput {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 250px;
+    font-size: 16px;
+    float: right;
+    background: #fff;
+    color: #000;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.items-table th,
+.items-table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #004d99;
+}
+
+.items-table th {
+    background-color: #003366;
+    color: #66ccff;
+    font-weight: bold;
+}
+
+.items-table td {
+    background-color: #002b5c;
+}
+
+.low-stock {
+    background-color: #ff4d4d !important;
+    color: white;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.action-btn.edit {
+    background-color: #3399ff;
+}
+
+.action-btn.delete {
+    background-color: #cc0000;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.add-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #0080ff;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #3399ff;
+}
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+.back-button:hover {
+    background-color: #3399ff;
+}
+
+/*popup box*/
+/* Modal Background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #0a2c4d;
+    color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 20px #0066cc;
+    position: relative;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 6px;
+    background: #004080;
+    color: white;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-btn:hover {
+    background-color: #3399ff;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
