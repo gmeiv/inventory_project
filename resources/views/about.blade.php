@@ -46,11 +46,11 @@
             <div class="section team">
                 <h2> Team Members</h2>
                 <ul class="team-list">
-                    <li><i class="fas fa-user"></i> <strong>Dr. Arvin Santos</strong> – Director & Robotics Lead</li>
-                    <li><i class="fas fa-user"></i> <strong>Engr. Jhenelle Carpio</strong> – Control Systems Specialist</li>
-                    <li><i class="fas fa-user"></i> <strong>Prof. Rica Morales</strong> – AI & ML Advisor</li>
-                    <li><i class="fas fa-user"></i> <strong>Mark Dela Cruz</strong> – Software Developer</li>
-                    <li><i class="fas fa-user"></i> <strong>Angela Torres</strong> – Research Coordinator</li>
+                    <li><i class="fas fa-user"></i> <strong>Dr. Bernardo Pangilinan </strong> – ARIC Manager</li>
+                    <li><i class="fas fa-user"></i> <strong>Engr. John Michael Satiago</strong> – Software Developer</li>
+                    <li><i class="fas fa-user"></i> <strong>Engr. Mark Soriano</strong> – Software Developer</li>
+                    <li><i class="fas fa-user"></i> <strong>Engr. Lanfeal Martinez</strong> – Software Developer</li>
+                    <li><i class="fas fa-user"></i> <strong>Engr. Jerome Bagsic</strong> – Software Developer</li>
                 </ul>
             </div>
         </td>
