@@ -16,13 +16,17 @@
 
         <div class="grid-wrapper">
                 <div class="grid-container">
-            <div class="grid-item"><i class="fas fa-user-circle"></i> My Account</div>
-            <a href="{{ route('admins.index') }}" class="grid-item"><i class="fas fa-user-shield"></i> Employee</a>
-            <div class="grid-item"><i class="fas fa-handshake"></i> Accept Request</div>
-            <a href="{{ route('items.index') }}" class="grid-item"><i class="fas fa-boxes"></i> Items</a>
-            <div class="grid-item"><i class="fas fa-exclamation-triangle"></i> Low Stocks</div>
-            <div class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</div>
-            <div class="grid-item"><i class="fas fa-sign-out-alt" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></i> Logout</div>
+            <button class="grid-item"><i class="fas fa-user-circle"></i> My Account</button>
+            <form action="{{ route('admins.index') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-user-shield"></i> Employee</button>
+            </form>
+            <button class="grid-item"><i class="fas fa-handshake"></i> Accept Request</button>
+            <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
+            </form>
+            <button class="grid-item"><i class="fas fa-exclamation-triangle"></i> Low Stocks</button>
+            <button class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
+            <button class="grid-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</button>
            
         </div>
 
