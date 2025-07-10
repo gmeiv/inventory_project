@@ -31,7 +31,23 @@ class AdminRegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Admin registered successfully!');
+        return redirect()->route('admins.index')->with('success', 'Admin registered successfully.');
     }
+
+    public function browse()
+{
+    $admins = \App\Models\Admin::all();
+    return view('browse_admins', compact('admins'));
+}
+public function destroy($id)
+{
+    \App\Models\Admin::destroy($id);
+    return redirect()->route('admins.index')->with('success', 'Admin deleted successfully.');
+}
+public function index()
+{
+    $admins = Admin::all();
+    return view('admins.index', compact('admins'));
+}
 }
 

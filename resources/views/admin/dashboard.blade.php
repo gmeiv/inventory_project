@@ -17,7 +17,7 @@
         <div class="grid-wrapper">
                 <div class="grid-container">
             <div class="grid-item"><i class="fas fa-user-circle"></i> My Account</div>
-            <div class="grid-item"><i class="fas fa-users"></i> Members</div>
+            <a href="{{ route('admins.index') }}" class="grid-item"><i class="fas fa-user-shield"></i> Employee</a>
             <div class="grid-item"><i class="fas fa-handshake"></i> Accept Request</div>
             <a href="{{ route('items.index') }}" class="grid-item"><i class="fas fa-boxes"></i> Items</a>
             <div class="grid-item"><i class="fas fa-exclamation-triangle"></i> Low Stocks</div>
