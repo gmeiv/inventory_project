@@ -7,31 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            background-color: #dc3545;
-            color: white;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .action-btn:hover {
-            background-color: #b02a37;
-        }
-        .add-button {
-            padding: 7px 14px;
-            background-color: #198754;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        .add-button:hover {
-            background-color: #157347;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/admins.css') }}">
+
 </head>
 <body>
 
