@@ -1,0 +1,25 @@
+#errorPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 1rem 2rem;
+    border: 1px solid #c62828;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#errorPopup button {
+    margin-top: 0.5rem;
+    background: #c62828;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class ItemController extends Controller
 {
@@ -19,14 +21,14 @@ class ItemController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'serial_number' => 'required|string|max:255|unique:items,serial_number',
-            'name' => 'required|string|max:255',
-            'stocks' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-            'serial_image' => 'nullable|image|max:2048',
-        ]);
+{
+    $validated = $request->validate([
+        'serial_number' => 'required|unique:items,serial_number',
+        'name' => 'required|string',
+        'stocks' => 'required|integer|min:0',
+        'location' => 'required|string',
+        'serial_image' => 'nullable|image'
+    ]);
 
         $data = $request->only(['serial_number', 'name', 'stocks', 'location']);
 
@@ -48,11 +50,15 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'serial_number' => [
+                'required',
+                Rule::unique('items')->ignore($item->id), // Adjust if you use serial_number as the primary key
+            ],
+            'name' => 'required',
             'stocks' => 'required|integer|min:0',
-            'location' => 'required|string|max:255',
-            'serial_image' => 'nullable|image|max:2048',
+            'location' => 'required',
         ]);
+        
 
         $data = $request->only(['name', 'stocks', 'location']);
 
