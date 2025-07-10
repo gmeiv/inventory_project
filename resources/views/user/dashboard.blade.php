@@ -16,13 +16,13 @@
 
         <div class="grid-wrapper">
             <div class="grid-container">
-                <div class="grid-item"><i class="fas fa-user"></i> My Account</div>
-                <div class="grid-item"><i class="fas fa-box-open" ><a href="{{ route('user.browse') }}"></i> Browse Items</a></div>
-                <div class="grid-item"><i class="fas fa-hand-holding"><a href=""></i> Request Borrow</a></div>
-                <div class="grid-item"><i class="fas fa-clipboard-list"></i> My Borrowings</div>
-                <div class="grid-item"><i class="fas fa-undo-alt"></i> Return Items</div>
-                <div class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</div>
-                <div class="grid-item"><i class="fas fa-sign-out-alt" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></i> Logout</div>
+                <button class="grid-item" type="button"><i class="fas fa-user"></i> My Account</button>
+                <a class="grid-item" href="{{ route('user.browse') }}"><i class="fas fa-box-open"></i> Browse Items</a>
+                <button class="grid-item" type="button"><i class="fas fa-hand-holding"></i> Request Borrow</button>
+                <button class="grid-item" type="button"><i class="fas fa-clipboard-list"></i> My Borrowings</button>
+                <button class="grid-item" type="button"><i class="fas fa-undo-alt"></i> Return Items</button>
+                <button class="grid-item" type="button"><i class="fas fa-bullhorn"></i> Announcements</button>
+                <button class="grid-item" type="button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 
             </div>
         </div>
