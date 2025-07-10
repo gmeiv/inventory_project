@@ -16,6 +16,7 @@
 
         <div class="grid-wrapper">
                 <div class="grid-container">
+
             <button class="grid-item" type="button"><i class="fas fa-user-circle"></i> My Account</button>
             <button class="grid-item" type="button"><i class="fas fa-users"></i> Members</button>
             <button class="grid-item" type="button"><i class="fas fa-handshake"></i> Accept Request</button>

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserRegisterController;
 use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserBorrowController;
+use App\Http\Controllers\EmployeeController;
 
 
 //  Homepage
@@ -81,3 +82,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/browse', [UserBorrowController::class, 'browse'])->name('user.browse');
 Route::post('/borrow-request/{serial_number}', [UserBorrowController::class, 'requestBorrow'])->name('borrow.request');
+
+
+Route::delete('/admins/{id}', [AdminRegisterController::class, 'destroy'])->name('admin.delete');
+Route::get('/browse-admins', [AdminRegisterController::class, 'browse'])->name('admins.browse');
+Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.index');
