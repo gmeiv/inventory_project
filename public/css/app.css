@@ -87,6 +87,8 @@ html, body {
 
 .container {
     width: 400px;
+    margin-left: 36rem;
+    margin-top: 6.5rem;
     height: 470px;
     display: flex;
     justify-content: center;
@@ -94,11 +96,6 @@ html, body {
     background: #003366;
     border-radius: 10px;
     box-shadow: 0 0 10px #0a2c4d;
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 #register-form {

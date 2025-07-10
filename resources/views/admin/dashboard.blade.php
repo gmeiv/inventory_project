@@ -16,14 +16,13 @@
 
         <div class="grid-wrapper">
                 <div class="grid-container">
-
-            <button class="grid-item" type="button"><i class="fas fa-user-circle"></i> My Account</button>
-            <button class="grid-item" type="button"><i class="fas fa-users"></i> Members</button>
-            <button class="grid-item" type="button"><i class="fas fa-handshake"></i> Accept Request</button>
+            <div class="grid-item"><i class="fas fa-user-circle"></i> My Account</div>
+            <a href="{{ route('admins.index') }}" class="grid-item"><i class="fas fa-user-shield"></i> Employee</a>
+            <div class="grid-item"><i class="fas fa-handshake"></i> Accept Request</div>
             <a href="{{ route('items.index') }}" class="grid-item"><i class="fas fa-boxes"></i> Items</a>
-            <button class="grid-item" type="button"><i class="fas fa-exclamation-triangle"></i> Low Stocks</button>
-            <button class="grid-item" type="button"><i class="fas fa-bullhorn"></i> Announcements</button>
-            <button class="grid-item" type="button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <div class="grid-item"><i class="fas fa-exclamation-triangle"></i> Low Stocks</div>
+            <div class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</div>
+            <div class="grid-item"><i class="fas fa-sign-out-alt" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"></i> Logout</div>
            
         </div>
 
