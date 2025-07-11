@@ -37,4 +37,23 @@ class UserBorrowController extends Controller
 
         return back()->with('success', 'Borrow request sent for item: ' . $serial_number);
     }
+
+    // Show user's borrowings
+    public function showMyBorrowings()
+    {
+        $myBorrowings = BorrowRequest::where('user_id', Auth::id())->with('user')->get();
+        return view('user.my-borrowings', compact('myBorrowings'));
+    }
+
+    // Handle returning an item
+    public function returnItem($id)
+    {
+        $borrow = BorrowRequest::where('id', $id)->where('user_id', Auth::id())->where('status', 'approved')->firstOrFail();
+        $item = Item::findOrFail($borrow->serial_number);
+        $item->stocks += 1;
+        $item->save();
+        $borrow->status = 'returned';
+        $borrow->save();
+        return redirect()->back()->with('success', 'Item returned successfully.');
+    }
 }

@@ -75,11 +75,11 @@ Route::post('/login', [LoginController::class, 'login']);
 // Dashboards
 Route::middleware('auth:web')->get('/user.dashboard', function () {
     return view('user.dashboard'); // or your actual user dashboard view
-});
+})->name('user.dashboard');
 
 Route::middleware('auth:admin')->get('/admin.dashboard', function () {
     return view('admin.dashboard'); // or your actual admin dashboard view
-});
+})->name('admin.dashboard');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -91,6 +91,7 @@ Route::post('/borrow-request/{serial_number}', [UserBorrowController::class, 're
 Route::delete('/admins/{id}', [AdminRegisterController::class, 'destroy'])->name('admin.delete');
 Route::get('/browse-admins', [AdminRegisterController::class, 'browse'])->name('admins.browse');
 Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.index');
+
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot_password'); // Create this Blade view
@@ -105,4 +106,25 @@ Route::get('/reset-password-form', [ForgotPasswordController::class, 'showResetF
 // Handle actual password reset submission
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
 
+
+
+// Admin: Accept Requests page and action
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/accept-requests', [DashboardController::class, 'showPendingRequests'])->name('admin.acceptRequests');
+    Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.acceptRequest');
+    Route::get('/admin/return-requests', [DashboardController::class, 'showReturnRequests'])->name('admin.returnRequests');
+    Route::post('/admin/confirm-return/{id}', [DashboardController::class, 'confirmReturn'])->name('admin.confirmReturn');
+});
+
+// Profile routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth:web')->group(function () {
+    Route::get('/user/my-borrowings', [UserBorrowController::class, 'showMyBorrowings'])->name('user.myBorrowings');
+    Route::post('/user/return-item/{id}', [UserBorrowController::class, 'returnItem'])->name('user.returnItem');
+});
 

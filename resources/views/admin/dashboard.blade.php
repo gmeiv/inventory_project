@@ -20,14 +20,17 @@
             <form action="{{ route('admins.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-user-shield"></i> Employee</button>
             </form>
-            <button class="grid-item"><i class="fas fa-handshake"></i> Accept Request</button>
+            <form action="{{ route('admin.acceptRequests') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-handshake"></i> Accept Request</button>
+            </form>
+            <form action="{{ route('admin.returnRequests') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-undo-alt"></i> Return Requests</button>
+            </form>
             <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
             </form>
-            <button class="grid-item"><i class="fas fa-exclamation-triangle"></i> Low Stocks</button>
             <button class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
             <button class="grid-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</button>
-           
         </div>
 
         </div>
