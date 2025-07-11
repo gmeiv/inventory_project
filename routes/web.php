@@ -92,6 +92,8 @@ Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.i
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/accept-requests', [DashboardController::class, 'showPendingRequests'])->name('admin.acceptRequests');
     Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.acceptRequest');
+    Route::get('/admin/return-requests', [DashboardController::class, 'showReturnRequests'])->name('admin.returnRequests');
+    Route::post('/admin/confirm-return/{id}', [DashboardController::class, 'confirmReturn'])->name('admin.confirmReturn');
 });
 
 // Profile routes

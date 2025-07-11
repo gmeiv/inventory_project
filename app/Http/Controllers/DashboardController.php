@@ -35,4 +35,20 @@ class DashboardController extends Controller
         $request->save();
         return redirect()->back()->with('success', 'Request accepted and stock updated.');
     }
+
+    // Show return requests (pending admin confirmation)
+    public function showReturnRequests()
+    {
+        $returnRequests = BorrowRequest::where('status', 'returned')->with('user')->get();
+        return view('admins.return-requests', compact('returnRequests'));
+    }
+
+    // Confirm a returned item
+    public function confirmReturn($id)
+    {
+        $request = BorrowRequest::findOrFail($id);
+        $request->status = 'confirmed_returned';
+        $request->save();
+        return redirect()->back()->with('success', 'Return confirmed.');
+    }
 }

@@ -25,7 +25,17 @@
                 @forelse ($myBorrowings as $borrow)
                     <tr>
                         <td>{{ $borrow->serial_number }}</td>
-                        <td>{{ ucfirst($borrow->status) }}</td>
+                        <td>
+                            @if($borrow->status === 'returned')
+                                Pending
+                            @elseif($borrow->status === 'approved')
+                                Approved
+                            @elseif($borrow->status === 'confirmed_returned')
+                                Confirmed Returned
+                            @else
+                                {{ ucfirst($borrow->status) }}
+                            @endif
+                        </td>
                         <td>
                             @if($borrow->status === 'approved')
                             <form action="{{ route('user.returnItem', $borrow->id) }}" method="POST" style="display:inline;">
