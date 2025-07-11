@@ -26,7 +26,6 @@
                 <form action="{{ route('user.myBorrowings') }}" method="GET" style="display:inline;">
                     <button type="submit" class="grid-item"><i class="fas fa-clipboard-list"></i> My Borrowings</button>
                 </form>
-                <button class="grid-item"><i class="fas fa-undo-alt"></i> Return Items</button>
                 <button class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:inline;">
                     @csrf
