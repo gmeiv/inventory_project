@@ -76,7 +76,7 @@ Route::middleware('auth:web')->get('/user.dashboard', function () {
 
 Route::middleware('auth:admin')->get('/admin.dashboard', function () {
     return view('admin.dashboard'); // or your actual admin dashboard view
-});
+})->name('admin.dashboard');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -87,3 +87,16 @@ Route::post('/borrow-request/{serial_number}', [UserBorrowController::class, 're
 Route::delete('/admins/{id}', [AdminRegisterController::class, 'destroy'])->name('admin.delete');
 Route::get('/browse-admins', [AdminRegisterController::class, 'browse'])->name('admins.browse');
 Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.index');
+
+// Admin: Accept Requests page and action
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/accept-requests', [DashboardController::class, 'showPendingRequests'])->name('admin.acceptRequests');
+    Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.acceptRequest');
+});
+
+// Profile routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});

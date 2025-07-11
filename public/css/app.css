@@ -218,3 +218,62 @@ button:hover {
 }
 
 /* Keep your sidebar as is, or update colors for dark theme if needed */
+
+/* Accept Requests Page Styles */
+.accept-requests-container {
+    max-width: 700px;
+    height: auto;
+    padding: 2rem 2.5rem;
+    background: #003366;
+    border-radius: 12px;
+    box-shadow: 0 0 16px #0a2c4d;
+    margin: 2rem auto 0 auto;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+}
+.accept-requests-title {
+    text-align: center;
+    color: #cce6ff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+.accept-requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0a2c4d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.accept-requests-table th {
+    background: #0059b3;
+    color: #fff;
+    padding: 12px;
+}
+.accept-requests-table td {
+    padding: 10px 12px;
+    color: #cce6ff;
+    border-bottom: 1px solid #0059b3;
+}
+.accept-requests-action-btn {
+    background: linear-gradient(to right, #0059b3, #003366);
+    color: white;
+    font-weight: bold;
+    padding: 7px 18px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.accept-requests-action-btn:hover {
+    background: linear-gradient(to right, #003366, #0059b3);
+    box-shadow: 0 0 10px #0059b3;
+    transform: scale(1.03);
+}
+.accept-requests-empty {
+    color: #cce6ff;
+    padding: 2rem;
+    text-align: center;
+}

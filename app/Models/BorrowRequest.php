@@ -13,5 +13,11 @@ class BorrowRequest extends Model
         'serial_number',
         'user_id',
         'status',
+        'quantity',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
