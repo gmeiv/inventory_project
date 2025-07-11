@@ -72,7 +72,7 @@ Route::post('/login', [LoginController::class, 'login']);
 // Dashboards
 Route::middleware('auth:web')->get('/user.dashboard', function () {
     return view('user.dashboard'); // or your actual user dashboard view
-});
+})->name('user.dashboard');
 
 Route::middleware('auth:admin')->get('/admin.dashboard', function () {
     return view('admin.dashboard'); // or your actual admin dashboard view
@@ -99,4 +99,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth:web')->group(function () {
+    Route::get('/user/my-borrowings', [UserBorrowController::class, 'showMyBorrowings'])->name('user.myBorrowings');
+    Route::post('/user/return-item/{id}', [UserBorrowController::class, 'returnItem'])->name('user.returnItem');
 });

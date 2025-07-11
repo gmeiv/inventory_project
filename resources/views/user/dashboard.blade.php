@@ -23,17 +23,19 @@
                 <form action="" method="GET" style="display:inline;">
                     <button type="submit" class="grid-item"><i class="fas fa-hand-holding"></i> Request Borrow</button>
                 </form>
-                <button class="grid-item"><i class="fas fa-clipboard-list"></i> My Borrowings</button>
+                <form action="{{ route('user.myBorrowings') }}" method="GET" style="display:inline;">
+                    <button type="submit" class="grid-item"><i class="fas fa-clipboard-list"></i> My Borrowings</button>
+                </form>
                 <button class="grid-item"><i class="fas fa-undo-alt"></i> Return Items</button>
                 <button class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
-                <button class="grid-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="grid-item"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </form>
                 
             </div>
         </div>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
     </div>
 </body>
 </html>
