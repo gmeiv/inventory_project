@@ -9,12 +9,12 @@ body {
 .about-wrapper {
     max-width: 1000px;
     margin: auto;
-    padding: 40px 20px;
+    padding: 30px 20px 20px 20px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .header h1 {
@@ -33,7 +33,11 @@ body {
 }
 
 .section {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+}
+
+.section.description p {
+    text-align: justify;
 }
 
 .section h2 {
@@ -51,29 +55,49 @@ body {
 }
 
 ul {
-    padding-left: 20px;
+    padding-left: 0;
+    margin: 0;
 }
 
-.back-button {
-    display: inline-block;
-    background-color: #0066cc;
-    padding: 10px 20px;
+.grid-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    width: 48%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border: 1px solid #3399ff33;
+}
+
+.card h2 i {
+    margin-right: 8px;
+    color: #66ccff;
+}
+
+/* ✅ Updated: No bullets in service list */
+.services-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.services-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    list-style-type: none;
+}
+
+.service-icon {
+    font-size: 1.5rem;
     color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.back-button:hover {
-    background-color: #3399ff;
-}
-
-.footer {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 100;
+    margin-right: 15px;
+    margin-top: 5px;
 }
 
 .team-list {
@@ -92,4 +116,36 @@ ul {
     margin-right: 10px;
     color: white;
     font-size: 1.1rem;
+}
+
+/* ✅ Fully remove any dark footer */
+footer,
+.footer {
+    display: none !important;
+    height: 0 !important;
+    background: none !important;
+}
+html, body {
+    height: auto !important;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #0a2c4d, #004080);
+}
+
+body::after {
+    content: none !important;
+    display: none !important;
+}
+.about-wrapper {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+
+/* ✅ Remove white shadow and background */
+.card {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
 }
