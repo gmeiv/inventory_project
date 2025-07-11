@@ -10,20 +10,12 @@
 </head>
 <body>
     @include('layouts.header')
+    @include('layouts.error-pop')
 
         <div class="container">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <h1>Login</h1>
-
-                @if($errors->any())
-                    <div class="form-group error-box" style="color: red; margin-bottom: 10px;">
-                        @foreach($errors->all() as $error)
-                            <div>{{ $error }}</div>
-                        @endforeach
-                    </div>
-                @endif
-
 
                 <div class="form-group">
                     <label for="email">Email</label>

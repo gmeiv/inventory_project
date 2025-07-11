@@ -31,7 +31,8 @@
             <td style="vertical-align: top; width: 50%;">
                 <div class="section feedback-form">
                     <h2>Send Us a Message</h2>
-                    <form action="#" method="POST">
+                   <form action="{{ route('contact.send') }}" method="POST">
+
                         @csrf
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" placeholder="Your name..." required>

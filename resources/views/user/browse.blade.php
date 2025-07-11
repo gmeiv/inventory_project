@@ -58,7 +58,7 @@
                         @if($item->stocks > 0)
                         <form action="{{ route('borrow.request', $item->serial_number) }}" method="POST" class="inline-form">
                             @csrf
-                            <button type="submit" class="action-btn borrow">
+                            <button type="submit" class="action-btn-borrow">
                                 <i class="fas fa-hand-paper"></i> Borrow
                             </button>
                         </form>

@@ -83,6 +83,18 @@ body {
     cursor: pointer;
 }
 
+.action-btn-borrow{
+    padding: 6px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    background-color: #3399ff;
+}
+
 .action-btn.edit {
     background-color: #3399ff;
 }
@@ -110,6 +122,10 @@ body {
 }
 
 .add-btn:hover {
+    background-color: #3399ff;
+}
+
+.add-btn-borrow:hover {
     background-color: #3399ff;
 }
 

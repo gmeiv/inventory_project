@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BorrowRequestController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserBorrowController;
 use App\Http\Controllers\EmployeeController;
+
+use App\Http\Controllers\ContactController;
 
 
 //  Homepage
@@ -33,6 +36,8 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
 Route::get('/admin', function () {
     return view('admindashboard');
 })->name('admindashboard');
@@ -42,11 +47,9 @@ Route::get('/adminabout', function () {
 })->name('adminabout');
 
 
-Route::get('/register', function () {
-    return view('layouts.register_type');
-})->name('register_type');
 
-Route::get('/user_register', function () {
+
+Route::get('/register', function () {
     return view('user_register');
 })->name('user_register');
 
@@ -84,6 +87,22 @@ Route::get('/browse', [UserBorrowController::class, 'browse'])->name('user.brows
 Route::post('/borrow-request/{serial_number}', [UserBorrowController::class, 'requestBorrow'])->name('borrow.request');
 
 
+
 Route::delete('/admins/{id}', [AdminRegisterController::class, 'destroy'])->name('admin.delete');
 Route::get('/browse-admins', [AdminRegisterController::class, 'browse'])->name('admins.browse');
 Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.index');
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot_password'); // Create this Blade view
+})->name('forgot.password');
+
+// Handle sending reset link
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])->name('forgot.password.send');
+
+// Show reset password form (from emailed token)
+Route::get('/reset-password-form', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
+
+// Handle actual password reset submission
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
+
+

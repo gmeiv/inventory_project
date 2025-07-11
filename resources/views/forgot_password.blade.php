@@ -10,7 +10,9 @@
 <body>
     @include('layouts.header')
     <div class="container">
-        <form action="" method="POST">
+        <form action="{{ route('forgot.password') }}" method="POST">
+    @csrf
+
         <h1>Forgot Password</h1>
         <div class="form-group">
             <label for="email">Email Address</label>

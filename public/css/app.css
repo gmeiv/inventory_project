@@ -99,6 +99,17 @@ html, body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.form-container{
+     width: 400px;
+    height: 470px;
+    display: flex;
+    justify-content: center;
+    background: #003366;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0a2c4d;
+    margin: 0 auto;
+    position: absolute;
+}
 
 #register-form {
     width: 90%;
@@ -130,10 +141,12 @@ html, body {
     color: #cce6ff;
 }
 
+
+
 .checkbox-group {
-    margin: 10px 0;
-    padding: 5px;
-    display: flex;
+    margin: 10px 5px;
+    padding: 10px;
+    
     align-items: center;
     color: #cce6ff;
 }
@@ -149,7 +162,7 @@ input[type="checkbox"] {
     border: 1px solid #0059b3;
 }
 
-.btn_out {
+.btn_out{
     padding: 10px;
     margin: 5px 16px;
     margin-top: 10px;
@@ -166,6 +179,10 @@ input[type="checkbox"] {
     transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
+#btn_sign{
+    margin-left: 23rem;
+
+}
 .btn_out:hover,
 button:hover {
     background: linear-gradient(to right, #003366, #0059b3);
@@ -173,46 +190,13 @@ button:hover {
     transform: scale(1.03);
 }
 
+
 .links {
+    
     font-size: 15px;
     margin: 10px 0;
     padding: 3px;
     display: flex;
     justify-content: center;
-    color: #cce6ff;
+    
 }
-
-.popup-content {
-    width: 400px;
-    height: 300px;
-    margin-left: 36rem;
-    margin-top: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #003366;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #0a2c4d;
-    color: #cce6ff;
-    text-align: center;
-}
-
-.popup-content input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    margin-left: 5rem;
-    padding: 15px;
-    margin-bottom: 2rem;
-    accent-color: #0059b3;
-    background: #0a2c4d;
-    border-radius: 50%;
-    border: 1px solid #0059b3;
-    vertical-align: middle;
-}
-
-#pop_btn {
-    margin-left: 3.1rem;
-}
-
-/* Keep your sidebar as is, or update colors for dark theme if needed */

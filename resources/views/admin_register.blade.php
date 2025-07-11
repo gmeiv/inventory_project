@@ -10,11 +10,14 @@
 
 </head>
 <body>
-    @include('layouts.header')
-    <div class="container" id="register-form">
+    <br>
+    @include('layouts.error-pop')
+     <a href="{{ route('admins.index') }}" class="back-button" style="margin-left: 2rem;">&larr; Back to Admins</a>
+
+    <div class="form-container" id="register-form">
     <form action="{{ route('admin.register') }}" method="POST">
         @csrf
-        <h1>Admin Registration</h1>
+        
         <table class="form-table">
             <tr>
                 <!-- Personal Information -->
@@ -102,9 +105,9 @@
         </table>
 
         <div class="checkbox-group">
-                <input type="checkbox" required> Agree to <a href="">Terms and Conditions</a><br><br>
+                <input type="checkbox" required> Agree to <a href="">Terms and Conditions</a><br>
                 <input type="checkbox" required> Give consent to <a href="">Data Privacy Policy</a>
-                </div>
+            </div>
 
          
                 @if($errors->any())

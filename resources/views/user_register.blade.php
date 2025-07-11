@@ -11,7 +11,8 @@
 </head>
 <body>
     @include('layouts.header')
-   <div class="container" id="register-form">
+    @include('layouts.error-pop')
+   <div class="form-container" id="register-form">
     <form action="{{route('user.register')}}" method="POST">
         @csrf
         <table class="form-table">
@@ -106,16 +107,10 @@
         <div class="checkbox-group">
                 <input type="checkbox" required> Agree to <a href="">Terms and Conditions</a><br>
                 <input type="checkbox" required> Give consent to <a href="">Data Privacy Policy</a>
-                </div>
+            </div>
 
 
-                @if($errors->any())
-                    <div class="form-group error-box" style="color: red; margin-bottom: 10px;">
-                        @foreach($errors->all() as $error)
-                            <div>{{ $error }}</div>
-                        @endforeach
-                    </div>
-                @endif
+                
 
         <button class="btn_out" id="btn_sign" type="submit">Register</button>
     </form>
