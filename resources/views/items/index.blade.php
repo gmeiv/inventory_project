@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="{{ asset('css/error-popup.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        input[disabled] {
+            background-color: #f0f0f0;
+            color: #888;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
     <a href="{{ url('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
@@ -80,20 +87,32 @@
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="modalTitle">Add Item</h2>
                 <form id="itemForm" method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="serial_number" id="serialNumber">
-                    <label for="serial_image">Serial Image</label>
-                    <input type="file" name="serial_image" id="serial_image" accept="image/*">
-                    <label for="serial_number">Serial Number</label>
-                    <input type="text" name="serial_number" id="serial_number" required>
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" required>
-                    <label for="stocks">Stocks</label>
-                    <input type="number" name="stocks" id="stocks" required min="0">
-                    <label for="location">Location</label>
-                    <input type="text" name="location" id="location" required>
-                    <button type="submit" class="modal-btn">Save Item</button>
-                </form>
+    @csrf
+
+    <!-- Hidden serial number used in the backend submission -->
+    <input type="hidden" name="serial_number" id="serialNumber">
+
+    <!-- Hidden original serial number for backend comparison -->
+    <input type="hidden" name="serial_number_original" id="serial_number_original">
+
+    <label for="serial_image">Serial Image</label>
+    <input type="file" name="serial_image" id="serial_image" accept="image/*">
+
+    <label for="serial_number">Serial Number</label>
+    <input type="text" name="serial_number" id="serial_number" required disabled>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="stocks">Stocks</label>
+    <input type="number" name="stocks" id="stocks" required min="0">
+
+    <label for="location">Location</label>
+    <input type="text" name="location" id="location" required>
+
+    <button type="submit" class="modal-btn">Save Item</button>
+</form>
+
             </div>
         </div>
 
@@ -106,46 +125,54 @@
 
     <script>
         function openAddModal() {
-            const form = document.getElementById('itemForm');
-            document.getElementById('modalTitle').innerText = 'Add Item';
-            form.action = "{{ route('items.store') }}";
+    const form = document.getElementById('itemForm');
+    document.getElementById('modalTitle').innerText = 'Add Item';
+    form.action = "{{ route('items.store') }}";
 
-            const methodField = form.querySelector('input[name="_method"]');
-            if (methodField) methodField.remove();
+    const methodField = form.querySelector('input[name="_method"]');
+    if (methodField) methodField.remove();
 
-            document.getElementById('serialNumber').value = '';
-            document.getElementById('name').value = '';
-            document.getElementById('stocks').value = '';
-            document.getElementById('location').value = '';
-            document.getElementById('serial_number').value = '';
+    document.getElementById('serialNumber').value = '';
+    document.getElementById('serial_number_original').value = '';
+    document.getElementById('serial_number').value = '';
+    document.getElementById('serial_number').disabled = false;
 
-            document.getElementById('itemModal').style.display = 'block';
-        }
+    document.getElementById('name').value = '';
+    document.getElementById('stocks').value = '';
+    document.getElementById('location').value = '';
+
+    document.getElementById('itemModal').style.display = 'block';
+}
+
 
         function openEditModal(serialNumber, name, stocks, location, actionUrl) {
-            const form = document.getElementById('itemForm');
-            document.getElementById('modalTitle').innerText = 'Edit Item';
-            form.action = actionUrl;
+    const form = document.getElementById('itemForm');
+    document.getElementById('modalTitle').innerText = 'Edit Item';
+    form.action = actionUrl;
 
-            let methodField = form.querySelector('input[name="_method"]');
-            if (!methodField) {
-                methodField = document.createElement('input');
-                methodField.type = 'hidden';
-                methodField.name = '_method';
-                methodField.value = 'PUT';
-                form.appendChild(methodField);
-            } else {
-                methodField.value = 'PUT';
-            }
+    let methodField = form.querySelector('input[name="_method"]');
+    if (!methodField) {
+        methodField = document.createElement('input');
+        methodField.type = 'hidden';
+        methodField.name = '_method';
+        methodField.value = 'PUT';
+        form.appendChild(methodField);
+    } else {
+        methodField.value = 'PUT';
+    }
 
-            document.getElementById('serialNumber').value = serialNumber;
-            document.getElementById('name').value = name;
-            document.getElementById('stocks').value = stocks;
-            document.getElementById('location').value = location;
-            document.getElementById('serial_number').value = serialNumber;
+    document.getElementById('serialNumber').value = serialNumber;
+    document.getElementById('serial_number_original').value = serialNumber;
+    document.getElementById('serial_number').value = serialNumber;
+    document.getElementById('serial_number').disabled = true;
 
-            document.getElementById('itemModal').style.display = 'block';
-        }
+    document.getElementById('name').value = name;
+    document.getElementById('stocks').value = stocks;
+    document.getElementById('location').value = location;
+
+    document.getElementById('itemModal').style.display = 'block';
+}
+
 
         function closeModal() {
             document.getElementById('itemModal').style.display = 'none';
