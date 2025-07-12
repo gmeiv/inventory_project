@@ -138,7 +138,12 @@ Route::get('/announcements/user', function () {
 })->name('announcements.user_index');
 
 Route::get('/announcements/user', [AnnouncementController::class, 'userIndex'])->name('announcements.user_index');
-
 Route::get('/user/announcements', [AnnouncementController::class, 'userView'])->name('user.announcements');
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
 Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+Route::resource('announcements', AnnouncementController::class);
+
+// Edit and Delete routes
+Route::get('/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
+Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
+Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
