@@ -26,6 +26,9 @@
             <form action="{{ route('admin.returnRequests') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-undo-alt"></i> Return Requests</button>
             </form>
+            <form action="{{ route('admin.requestHistory') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-history"></i> Transaction History</button>
+            </form>
             <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
             </form>

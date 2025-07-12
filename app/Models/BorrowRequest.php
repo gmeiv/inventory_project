@@ -20,4 +20,9 @@ class BorrowRequest extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'serial_number', 'serial_number');
+    }
 }

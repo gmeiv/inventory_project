@@ -1,0 +1,231 @@
+/* Request History Page Styles */
+.accept-requests-container {
+    max-width: 1200px;
+    width: 95%;
+    height: auto;
+    padding: 2rem 2.5rem;
+    background: #003366;
+    border-radius: 12px;
+    box-shadow: 0 0 16px #0a2c4d;
+    margin: 2rem auto 0 auto;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+}
+
+.accept-requests-title {
+    text-align: center;
+    color: #cce6ff;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.accept-requests-action-btn {
+    background: linear-gradient(to right, #0059b3, #003366);
+    color: white;
+    font-weight: bold;
+    padding: 7px 18px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.accept-requests-action-btn:hover {
+    background: linear-gradient(to right, #003366, #0059b3);
+    box-shadow: 0 0 10px #0059b3;
+    transform: scale(1.03);
+}
+
+.accept-requests-empty {
+    color: #cce6ff;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Filter Container Styles */
+.filter-container {
+    background: #0a2c4d;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.filter-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.filter-group label {
+    color: #cce6ff;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.filter-group input, .filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #0059b3;
+    border-radius: 5px;
+    background: #003366;
+    color: #cce6ff;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-pending { 
+    background: #ffc107; 
+    color: #000; 
+}
+
+.status-approved { 
+    background: #28a745; 
+    color: #fff; 
+}
+
+.status-returned { 
+    background: #17a2b8; 
+    color: #fff; 
+}
+
+.status-confirmed_returned { 
+    background: #6c757d; 
+    color: #fff; 
+}
+
+/* Table Styles */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0a2c4d;
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.history-table th {
+    background: #0059b3;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+}
+
+.history-table td {
+    padding: 10px 12px;
+    color: #cce6ff;
+    border-bottom: 1px solid #0059b3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.history-table tr:hover {
+    background: #0a2c4d;
+}
+
+/* Column Width Distribution */
+.history-table th:nth-child(1) { width: 25%; } /* User - increased from 15% */
+.history-table th:nth-child(2) { width: 15%; } /* Item */
+.history-table th:nth-child(3) { width: 15%; } /* Serial Number */
+.history-table th:nth-child(4) { width: 20%; } /* Status - increased from 12% */
+.history-table th:nth-child(5) { width: 12%; } /* Request Date - decreased from 18% */
+.history-table th:nth-child(6) { width: 12%; } /* Updated Date - decreased from 18% */
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 12px;
+    background: #0059b3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.pagination .current {
+    background: #003366;
+}
+
+.pagination a:hover {
+    background: #003366;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .accept-requests-container {
+        width: 98%;
+        padding: 1rem;
+    }
+    
+    .filter-row {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    .history-table {
+        font-size: 0.9rem;
+    }
+    
+    .history-table th, .history-table td {
+        padding: 8px 6px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-buttons .accept-requests-action-btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .accept-requests-container {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 1rem 0;
+    }
+    
+    .history-table {
+        font-size: 0.8rem;
+    }
+    
+    .history-table th, .history-table td {
+        padding: 6px 4px;
+    }
+    
+    .status-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+} 

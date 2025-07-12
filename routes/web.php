@@ -114,6 +114,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.acceptRequest');
     Route::get('/admin/return-requests', [DashboardController::class, 'showReturnRequests'])->name('admin.returnRequests');
     Route::post('/admin/confirm-return/{id}', [DashboardController::class, 'confirmReturn'])->name('admin.confirmReturn');
+    Route::get('/admin/request-history', [DashboardController::class, 'showRequestHistory'])->name('admin.requestHistory');
 });
 
 // Profile routes
