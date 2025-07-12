@@ -33,7 +33,9 @@
             <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
             </form>
-            <button class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
+            <form action="{{ route('announcements.index') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
+            </form>
             <button class="grid-item" onclick="showConfirmPopup('logout')"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
 

@@ -80,7 +80,6 @@ ul {
     color: #66ccff;
 }
 
-/* ✅ Updated: No bullets in service list */
 .services-list {
     list-style: none;
     padding-left: 0;
@@ -118,7 +117,6 @@ ul {
     font-size: 1.1rem;
 }
 
-/* ✅ Fully remove any dark footer */
 footer,
 .footer {
     display: none !important;
@@ -142,10 +140,26 @@ body::after {
     margin-bottom: 0 !important;
 }
 
-
-/* ✅ Remove white shadow and background */
 .card {
     background-color: transparent !important;
     box-shadow: none !important;
     border: none !important;
 }
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+.back-button:hover {
+    background-color: #3399ff;
+}
+

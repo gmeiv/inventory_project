@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserBorrowController;
 use App\Http\Controllers\EmployeeController;
-
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactController;
 
 
@@ -130,3 +130,21 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/user/return-item/{id}', [UserBorrowController::class, 'returnItem'])->name('user.returnItem');
 });
 
+Route::get('/user/dashboard', function () {
+    return view('user.dashboard');
+})->name('user.dashboard');
+
+Route::get('/announcements/user', function () {
+    return view('announcements.user_index');
+})->name('announcements.user_index');
+
+Route::get('/announcements/user', [AnnouncementController::class, 'userIndex'])->name('announcements.user_index');
+Route::get('/user/announcements', [AnnouncementController::class, 'userView'])->name('user.announcements');
+Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+Route::resource('announcements', AnnouncementController::class);
+
+// Edit and Delete routes
+Route::get('/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
+Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
+Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
