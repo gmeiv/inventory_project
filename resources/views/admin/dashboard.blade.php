@@ -21,6 +21,9 @@
             <form action="{{ route('admins.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-user-shield"></i> Employee</button>
             </form>
+            <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
+            </form>
             <form action="{{ route('admin.acceptRequests') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-handshake"></i> Accept Request</button>
             </form>
@@ -30,9 +33,7 @@
             <form action="{{ route('admin.requestHistory') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-history"></i> Transaction History</button>
             </form>
-            <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
-                <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
-            </form>
+
             <form action="{{ route('announcements.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-bullhorn"></i> Announcements</button>
             </form>
