@@ -9,7 +9,7 @@
 <div class="container py-5">
     <h2 class="text-center mb-4">Announcement</h2>
 
-    <div class="top-buttons">
+    <div class="top-buttons mb-3">
         <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">&larr; Back</a>
         <button class="btn btn-darkblue" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">+ Add Announcement</button>
     </div>
@@ -17,7 +17,7 @@
     @if($announcements->count() > 0)
         @foreach($announcements as $announcement)
             <div class="announcement-box">
-                <h4>{{ $announcement->title }}</h4>
+                <h4 class="text-uppercase">{{ $announcement->title }}</h4>
                 <p><strong>Date:</strong> {{ $announcement->date }} | <strong>Time:</strong> {{ $announcement->time }}</p>
                 <p>{{ $announcement->description }}</p>
             </div>

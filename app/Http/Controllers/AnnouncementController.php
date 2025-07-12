@@ -26,6 +26,18 @@ class AnnouncementController extends Controller
 
         return redirect()->route('announcements.index')->with('success', 'Announcement added successfully!');
     }
+
+public function userView()
+{
+    $announcements = Announcement::latest()->get();
+    return view('announcements.user_index', compact('announcements'));
+}
+
+public function userIndex()
+{
+    $announcements = Announcement::latest()->get(); // or whatever query you need
+    return view('announcements.user_index', compact('announcements'));
+}
 }
 
 
