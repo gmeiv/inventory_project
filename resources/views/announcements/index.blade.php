@@ -7,16 +7,22 @@
 </head>
 <body>
 <div class="container py-5">
-    <h2 class="text-center mb-4">Announcement</h2>
+    <!-- Back Button -->
+    <div class="mb-2">
+        <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
+    </div>
 
-    <div class="top-buttons mb-3 d-flex justify-content-between">
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">&larr; Back</a>
+    <!-- Title -->
+    <h2 class="text-center mb-3">Announcement</h2>
+
+    <!-- Add Button aligned right -->
+    <div class="d-flex justify-content-end mb-4">
         <button class="btn btn-darkblue" onclick="openAddModal()">+ Add Announcement</button>
     </div>
 
     @if($announcements->count() > 0)
     @foreach($announcements as $announcement)
-    <div class="announcement-box">
+    <div class="announcement-box mb-3">
         @php
             $announcementData = [
                 'id' => $announcement->id,
@@ -30,31 +36,23 @@
         <h4 class="text-uppercase">{{ $announcement->title }}</h4>
         <p><strong>Date:</strong> {{ $announcement->date }} | <strong>Time:</strong> {{ $announcement->time }}</p>
 
-        <!-- Description and buttons in same row -->
         <div class="d-flex justify-content-between align-items-start">
-    <p class="mb-0 flex-grow-1 pe-3">{{ $announcement->description }}</p>
-
-    <div class="d-flex gap-2 align-items-center">
-        <!-- Edit Button -->
-        <button class="btn btn-sm btn-primary"
-            onclick='openEditModal(@json($announcementData))'>
-            Edit
-        </button>
-
-        <!-- Delete Button -->
-        <form action="{{ route('announcements.destroy', $announcement->id) }}" method="POST" class="m-0 p-0">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-sm btn-danger">
-                Delete
-            </button>
-        </form>
+            <p class="mb-0 flex-grow-1 pe-3">{{ $announcement->description }}</p>
+            <div class="d-flex gap-2 align-items-center">
+                <button class="btn btn-sm btn-primary" onclick='openEditModal(@json($announcementData))'>
+                    Edit
+                </button>
+                <form action="{{ route('announcements.destroy', $announcement->id) }}" method="POST" class="m-0 p-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-
-    </div>
-@endforeach
-
+    @endforeach
     @else
         <p class="text-center">Nothing's here</p>
     @endif
