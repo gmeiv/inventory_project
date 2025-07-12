@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminRegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserBorrowController;
 use App\Http\Controllers\EmployeeController;
-
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactController;
 
 
@@ -129,3 +129,5 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/user/return-item/{id}', [UserBorrowController::class, 'returnItem'])->name('user.returnItem');
 });
 
+Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');

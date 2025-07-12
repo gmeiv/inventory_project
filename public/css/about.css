@@ -80,7 +80,6 @@ ul {
     color: #66ccff;
 }
 
-/* ✅ Updated: No bullets in service list */
 .services-list {
     list-style: none;
     padding-left: 0;
@@ -118,7 +117,6 @@ ul {
     font-size: 1.1rem;
 }
 
-/* ✅ Fully remove any dark footer */
 footer,
 .footer {
     display: none !important;
@@ -142,8 +140,6 @@ body::after {
     margin-bottom: 0 !important;
 }
 
-
-/* ✅ Remove white shadow and background */
 .card {
     background-color: transparent !important;
     box-shadow: none !important;

@@ -1,0 +1,30 @@
+/* public/css/announcement.css */
+
+body {
+    background-color: #0b1d3a;
+    color: white;
+}
+
+.modal-content {
+    background-color: #112b53;
+    color: white;
+}
+
+.btn-darkblue {
+    background-color: #1c3c6b;
+    color: white;
+}
+
+.announcement-box {
+    background-color: #1c3c6b;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
