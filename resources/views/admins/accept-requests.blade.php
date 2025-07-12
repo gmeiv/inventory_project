@@ -69,25 +69,28 @@
     <div class="notification-container" id="notificationContainer"></div>
 
     <script>
-        function showConfirmPopup(action, requestId, userName, itemName) {
-            const popup = document.getElementById('confirmPopup');
-            const title = document.getElementById('popupTitle');
-            const message = document.getElementById('popupMessage');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const form = document.getElementById('actionForm');
+       function showConfirmPopup(action, requestId, userName, itemName) {
+        const popup = document.getElementById('confirmPopup');
+        const title = document.getElementById('popupTitle');
+        const message = document.getElementById('popupMessage');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const form = document.getElementById('actionForm');
 
-            if (action === 'accept') {
-                title.textContent = 'Accept Borrow Request';
-                message.textContent = `Are you sure you want to accept the borrow request from ${userName} for item ${itemName}?`;
-                form.action = `/admin/accept-request/${requestId}`;
-            }
+        const baseRoute = "{{ url('/admin/accept-request') }}"; // Blade inserts full base URL
 
-            confirmBtn.onclick = function() {
-                form.submit();
-            };
-
-            popup.style.display = 'flex';
+        if (action === 'accept') {
+            title.textContent = 'Accept Borrow Request';
+            message.textContent = `Are you sure you want to accept the borrow request from ${userName} for item ${itemName}?`;
+            form.action = `${baseRoute}/${requestId}`; // Full dynamic action
         }
+
+        confirmBtn.onclick = function() {
+            form.submit();
+        };
+
+        popup.style.display = 'flex';
+    }
+
 
         function hideConfirmPopup() {
             const popup = document.getElementById('confirmPopup');

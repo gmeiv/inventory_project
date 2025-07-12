@@ -69,24 +69,26 @@
 
     <script>
         function showConfirmPopup(action, requestId, userName, itemName) {
-            const popup = document.getElementById('confirmPopup');
-            const title = document.getElementById('popupTitle');
-            const message = document.getElementById('popupMessage');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const form = document.getElementById('actionForm');
+        const popup = document.getElementById('confirmPopup');
+        const title = document.getElementById('popupTitle');
+        const message = document.getElementById('popupMessage');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const form = document.getElementById('actionForm');
 
-            if (action === 'confirm') {
-                title.textContent = 'Confirm Return';
-                message.textContent = `Are you sure you want to confirm the return from ${userName} for item ${itemName}?`;
-                form.action = `/admin/confirm-return/${requestId}`;
-            }
+        const confirmReturnRoute = "{{ url('/admin/confirm-return') }}"; // Laravel Blade outputs the base URL
 
-            confirmBtn.onclick = function() {
-                form.submit();
-            };
-
-            popup.style.display = 'flex';
+        if (action === 'confirm') {
+            title.textContent = 'Confirm Return';
+            message.textContent = `Are you sure you want to confirm the return from ${userName} for item ${itemName}?`;
+            form.action = `${confirmReturnRoute}/${requestId}`;
         }
+
+        confirmBtn.onclick = function() {
+            form.submit();
+        };
+
+        popup.style.display = 'flex';
+    }
 
         function hideConfirmPopup() {
             const popup = document.getElementById('confirmPopup');

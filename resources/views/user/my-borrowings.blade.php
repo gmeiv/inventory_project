@@ -77,24 +77,26 @@
 
     <script>
         function showConfirmPopup(action, borrowId, serialNumber) {
-            const popup = document.getElementById('confirmPopup');
-            const title = document.getElementById('popupTitle');
-            const message = document.getElementById('popupMessage');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const form = document.getElementById('actionForm');
+        const popup = document.getElementById('confirmPopup');
+        const title = document.getElementById('popupTitle');
+        const message = document.getElementById('popupMessage');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const form = document.getElementById('actionForm');
 
-            if (action === 'return') {
-                title.textContent = 'Confirm Return';
-                message.textContent = `Are you sure you want to return item ${serialNumber}?`;
-                form.action = `/user/return-item/${borrowId}`;
-            }
+        const returnRoute = "{{ url('/user/return-item') }}"; // Blade-generated base
 
-            confirmBtn.onclick = function() {
-                form.submit();
-            };
-
-            popup.style.display = 'flex';
+        if (action === 'return') {
+            title.textContent = 'Confirm Return';
+            message.textContent = `Are you sure you want to return item ${serialNumber}?`;
+            form.action = `${returnRoute}/${borrowId}`;
         }
+
+        confirmBtn.onclick = function() {
+            form.submit();
+        };
+
+        popup.style.display = 'flex';
+    }
 
         function hideConfirmPopup() {
             const popup = document.getElementById('confirmPopup');

@@ -48,7 +48,9 @@ Route::get('/adminabout', function () {
 
 Route::post('/borrow-request/{serialNumber}', [UserBorrowController::class, 'requestBorrow'])->name('borrow.request');
 
+Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.accept-request');
 
+Route::post('/admin/confirm-return/{id}', [DashboardController::class, 'confirmReturn'])->name('admin.confirm-return');
 
 Route::get('/register', function () {
     return view('user_register');
