@@ -149,3 +149,21 @@ body::after {
     box-shadow: none !important;
     border: none !important;
 }
+
+.back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+.back-button:hover {
+    background-color: #3399ff;
+}
+
