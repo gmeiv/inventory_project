@@ -46,6 +46,7 @@ Route::get('/adminabout', function () {
     return view('adminabout');
 })->name('adminabout');
 
+Route::post('/borrow-request/{serialNumber}', [UserBorrowController::class, 'requestBorrow'])->name('borrow.request');
 
 
 

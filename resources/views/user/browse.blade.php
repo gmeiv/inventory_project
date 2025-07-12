@@ -96,26 +96,28 @@
                 row.style.display = (serial_number.includes(input) || name.includes(input)) ? '' : 'none';
             });
         }
+function showConfirmPopup(action, serialNumber, itemName) {
+    const popup = document.getElementById('confirmPopup');
+    const title = document.getElementById('popupTitle');
+    const message = document.getElementById('popupMessage');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const form = document.getElementById('actionForm');
 
-        function showConfirmPopup(action, serialNumber, itemName) {
-            const popup = document.getElementById('confirmPopup');
-            const title = document.getElementById('popupTitle');
-            const message = document.getElementById('popupMessage');
-            const confirmBtn = document.getElementById('confirmBtn');
-            const form = document.getElementById('actionForm');
+    const baseRoute = "{{ url('/borrow-request') }}"; // Blade-generated base URL
 
-            if (action === 'borrow') {
-                title.textContent = 'Confirm Borrow';
-                message.textContent = `Are you sure you want to borrow ${itemName} (${serialNumber})?`;
-                form.action = `/borrow-request/${serialNumber}`;
-            }
+    if (action === 'borrow') {
+        title.textContent = 'Confirm Borrow';
+        message.textContent = `Are you sure you want to borrow ${itemName} (${serialNumber})?`;
+        form.action = `${baseRoute}/${serialNumber}`;
+    }
 
-            confirmBtn.onclick = function() {
-                form.submit();
-            };
+    confirmBtn.onclick = function() {
+        form.submit();
+    };
 
-            popup.style.display = 'flex';
-        }
+    popup.style.display = 'flex';
+}
+
 
         function hideConfirmPopup() {
             const popup = document.getElementById('confirmPopup');
