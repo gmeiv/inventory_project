@@ -25,8 +25,8 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required >
                 </div>
-                <div class="links"><a class="links" href="{{url('/forgot_password')}}">Forgot your password?</a></div>
-                <div class="links"><p>Create an Account? </p> <a class="links" href="{{ url('/register') }}">Sign Up</a></div>
+                <div class="links"><a class="links" style="color: white" href="{{url('/forgot_password')}}">Forgot your password?</a></div>
+                <div class="links"><p>Create an Account? </p> <a class="links" style="color: white" href="{{ url('/register') }}">Sign Up</a></div>
                 <button class="btn_out" type="submit">Log In</button>
             </form>
         </div>
