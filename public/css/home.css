@@ -1,0 +1,145 @@
+:root {
+    --primary: #0e2a47;
+    --accent: #1d4ed8;
+    --light-bg: #f0f4f8;
+    --text-light: #e0e0e0;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--primary);
+    color: var(--text-light);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h2, h5 {
+    color: var(--white);
+}
+
+.hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 60px 5%;
+    background: linear-gradient(to right, #0e2a47, #123c6b);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.welcome-message {
+    flex: 1 1 45%;
+    padding-right: 20px;
+}
+
+.welcome-message h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #cfd8e1;
+    margin-bottom: 25px;
+}
+
+.register-btn {
+    background-color: var(--accent);
+    color: white;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.register-btn:hover {
+    background-color: #2563eb;
+}
+
+.carousel-container {
+    flex: 1 1 50%;
+    max-width: 640px;
+}
+
+.carousel-item img {
+    max-height: 420px;
+    object-fit: cover;
+    width: 98%;
+    border-radius: 16px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.features-section {
+    background-color: #174e89;
+}
+
+.feature-card {
+    background: #2163af;
+    border-radius: 15px;
+    padding: 30px 20px;
+    margin: 15px;
+    color: white;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.feature-card:hover {
+    background: #3282d5;
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 40px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.cta-section {
+    background-color: #103659;
+}
+
+footer {
+    background-color: #0a1f33;
+    color: #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .welcome-message {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .carousel-container {
+        width: 100%;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        max-height: 300px;
+    }
+}
+
+.hero-section h1,
+.features-section h2,
+.cta-section h2 {
+    color: white !important;
+}

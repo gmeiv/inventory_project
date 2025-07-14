@@ -150,3 +150,7 @@ Route::resource('announcements', AnnouncementController::class);
 Route::get('/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
 Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
 Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
+Route::get('/', function () {
+    return view('home');
+});
