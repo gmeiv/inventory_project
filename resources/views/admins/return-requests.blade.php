@@ -47,7 +47,7 @@
         </table>
     </div>
 
-    <!-- Confirmation Popup -->
+   
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
             <h3 id="popupTitle">Confirm Action</h3>
@@ -59,12 +59,12 @@
         </div>
     </div>
 
-    <!-- Hidden form for submission -->
+    
     <form id="actionForm" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <!-- Notification Container -->
+   
     <div class="notification-container" id="notificationContainer"></div>
 
     <script>
@@ -75,7 +75,7 @@
         const confirmBtn = document.getElementById('confirmBtn');
         const form = document.getElementById('actionForm');
 
-        const confirmReturnRoute = "{{ url('/admin/confirm-return') }}"; // Laravel Blade outputs the base URL
+        const confirmReturnRoute = "{{ url('/admin/confirm-return') }}"; 
 
         if (action === 'confirm') {
             title.textContent = 'Confirm Return';
@@ -95,14 +95,14 @@
             popup.style.display = 'none';
         }
 
-        // Close popup when clicking outside
+        
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();
             }
         });
 
-        // Show notification function
+        
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -122,7 +122,7 @@
             
             container.appendChild(notification);
             
-            // Auto remove after 5 seconds
+           
             setTimeout(() => {
                 removeNotification(notification.querySelector('.notification-close'));
             }, 5000);
@@ -136,7 +136,7 @@
             }, 300);
         }
 
-        // Check for flash messages and show as notifications
+       
         @if (session('success'))
             showNotification("{{ session('success') }}", 'success');
         @endif

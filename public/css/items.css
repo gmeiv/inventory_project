@@ -146,8 +146,6 @@ body {
     background-color: #3399ff;
 }
 
-/*popup box*/
-/* Modal Background */
 .modal {
     display: none;
     position: fixed;

@@ -81,7 +81,7 @@
             </button>
         </div>
 
-        <!-- Modal -->
+       
         <div id="itemModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -89,10 +89,10 @@
                 <form id="itemForm" method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <!-- Hidden serial number used in the backend submission -->
+
     <input type="hidden" name="serial_number" id="serialNumber">
 
-    <!-- Hidden original serial number for backend comparison -->
+
     <input type="hidden" name="serial_number_original" id="serial_number_original">
 
     <label for="serial_image">Serial Image</label>
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <!-- Error Popup -->
+        
         <div id="errorPopup">
             <p><strong>The serial number is already taken.</strong></p>
             <button onclick="closeErrorPopup()">Okay</button>

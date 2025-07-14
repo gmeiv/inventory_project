@@ -21,12 +21,10 @@ class ForgotPasswordController extends Controller
             return back()->withErrors(['email' => 'Email not found in our records.']);
         }
 
-        // Create token (email|expires)
         $tokenPayload = $request->email . '|' . now()->addHour()->timestamp;
         $token = rtrim(strtr(base64_encode($tokenPayload), '+/', '-_'), '=');
         $link = url('/reset-password-form?token=' . urlencode($token));
 
-        // Email content
         $message = "Click the link below to reset your password:\n\n$link";
 
        Mail::html("

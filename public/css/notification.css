@@ -1,4 +1,4 @@
-/* Custom Notification Styles */
+
 .notification-container {
     position: fixed;
     bottom: 20px;
@@ -97,7 +97,7 @@
     animation: slideOutLeft 0.3s ease-in forwards;
 }
 
-/* Mobile responsive */
+
 @media (max-width: 768px) {
     .notification-container {
         bottom: 10px;

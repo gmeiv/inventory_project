@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/confirm-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome (optional, if you want icons) -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -48,7 +48,6 @@
         </table>
     </div>
 
-    <!-- Confirmation Popup -->
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
             <h3 id="popupTitle">Confirm Action</h3>
@@ -60,12 +59,10 @@
         </div>
     </div>
 
-    <!-- Hidden form for submission -->
     <form id="actionForm" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
 
     <script>
@@ -76,12 +73,12 @@
         const confirmBtn = document.getElementById('confirmBtn');
         const form = document.getElementById('actionForm');
 
-        const baseRoute = "{{ url('/admin/accept-request') }}"; // Blade inserts full base URL
+        const baseRoute = "{{ url('/admin/accept-request') }}"; 
 
         if (action === 'accept') {
             title.textContent = 'Accept Borrow Request';
             message.textContent = `Are you sure you want to accept the borrow request from ${userName} for item ${itemName}?`;
-            form.action = `${baseRoute}/${requestId}`; // Full dynamic action
+            form.action = `${baseRoute}/${requestId}`; 
         }
 
         confirmBtn.onclick = function() {
@@ -97,14 +94,12 @@
             popup.style.display = 'none';
         }
 
-        // Close popup when clicking outside
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();
             }
         });
 
-        // Show notification function
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -124,7 +119,6 @@
             
             container.appendChild(notification);
             
-            // Auto remove after 5 seconds
             setTimeout(() => {
                 removeNotification(notification.querySelector('.notification-close'));
             }, 5000);
@@ -138,7 +132,6 @@
             }, 300);
         }
 
-        // Check for flash messages and show as notifications
         @if (session('success'))
             showNotification("{{ session('success') }}", 'success');
         @endif

@@ -7,15 +7,15 @@
 </head>
 <body>
 <div class="container py-5">
-    <!-- Back Button -->
+
     <div class="mb-2">
         <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
     </div>
 
-    <!-- Title -->
+
     <h2 class="text-center mb-3">Announcement</h2>
 
-    <!-- Add Button aligned right -->
+
     <div class="d-flex justify-content-end mb-4">
         <button class="btn btn-darkblue" onclick="openAddModal()">+ Add Announcement</button>
     </div>
@@ -58,7 +58,7 @@
     @endif
 </div>
 
-<!-- Shared Add/Edit Modal -->
+
 <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form id="announcementForm" method="POST" action="{{ route('announcements.store') }}">
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<!-- JS Scripts AFTER HTML is loaded -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     let modalInstance = null;

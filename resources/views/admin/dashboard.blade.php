@@ -47,7 +47,7 @@
         </form>
     </div>
 
-    <!-- Confirmation Popup -->
+   
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
             <h3 id="popupTitle">Confirm Action</h3>
@@ -82,7 +82,7 @@
             popup.style.display = 'none';
         }
 
-        // Close popup when clicking outside
+        
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();

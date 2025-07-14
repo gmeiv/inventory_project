@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
@@ -13,21 +12,15 @@ use App\Http\Controllers\UserBorrowController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactController;
-
-
-//  Homepage
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('home');
 });
 
-// Custom Dashboard Route (UI-based design)
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
-
-//  Contact Us Page
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -70,12 +63,9 @@ Route::resource('items', ItemController::class);
 Route::post('/user_register', [UserRegisterController::class, 'store'])->name('user.register');
 Route::post('/admin_register', [AdminRegisterController::class, 'store'])->name('admin.register');
 
-
-// Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
-// Dashboards
 Route::middleware('auth:web')->get('/user.dashboard', function () {
     return view('user.dashboard'); // or your actual user dashboard view
 })->name('user.dashboard');
@@ -89,29 +79,21 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/browse', [UserBorrowController::class, 'browse'])->name('user.browse');
 Route::post('/borrow-request/{serial_number}', [UserBorrowController::class, 'requestBorrow'])->name('borrow.request');
 
-
-
 Route::delete('/admins/{id}', [AdminRegisterController::class, 'destroy'])->name('admin.delete');
 Route::get('/browse-admins', [AdminRegisterController::class, 'browse'])->name('admins.browse');
 Route::get('/admins', [AdminRegisterController::class, 'index'])->name('admins.index');
 
 
 Route::get('/forgot-password', function () {
-    return view('auth.forgot_password'); // Create this Blade view
+    return view('auth.forgot_password'); 
 })->name('forgot.password');
 
-// Handle sending reset link
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendLink'])->name('forgot.password.send');
 
-// Show reset password form (from emailed token)
 Route::get('/reset-password-form', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
 
-// Handle actual password reset submission
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
 
-
-
-// Admin: Accept Requests page and action
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/accept-requests', [DashboardController::class, 'showPendingRequests'])->name('admin.acceptRequests');
     Route::post('/admin/accept-request/{id}', [DashboardController::class, 'acceptRequest'])->name('admin.acceptRequest');
@@ -120,7 +102,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/request-history', [DashboardController::class, 'showRequestHistory'])->name('admin.requestHistory');
 });
 
-// Profile routes
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -146,7 +128,7 @@ Route::get('/announcements', [AnnouncementController::class, 'index'])->name('an
 Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
 Route::resource('announcements', AnnouncementController::class);
 
-// Edit and Delete routes
+
 Route::get('/announcements/{id}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
 Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
 Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');

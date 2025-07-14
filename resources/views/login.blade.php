@@ -32,10 +32,8 @@
             </form>
         </div>
     
-    <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
     <script>
-        // Show notification function
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -55,7 +53,6 @@
             
             container.appendChild(notification);
             
-            // Auto remove after 5 seconds
             setTimeout(() => {
                 removeNotification(notification.querySelector('.notification-close'));
             }, 5000);
@@ -69,7 +66,6 @@
             }, 300);
         }
 
-        // Check for flash messages and show as notifications
         @if (session('success'))
             showNotification("{{ session('success') }}", 'success');
         @endif

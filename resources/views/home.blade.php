@@ -11,10 +11,10 @@
 </head>
 <body>
 
-    {{-- ✅ Header --}}
+
     @include('layouts.header')
 
-    {{-- ✅ Hero Section --}}
+
     <div class="hero-section">
         <div class="welcome-message">
             <h1>Welcome to ARICC</h1>
@@ -47,7 +47,6 @@
         </div>
     </div>
 
-    {{-- ✅ Featured Services --}}
     <div class="features-section section">
         <h2>Featured Services</h2>
         <div class="row justify-content-center">
@@ -69,7 +68,6 @@
         </div>
     </div>
 
-    {{-- ✅ System Overview Section --}}
     <div class="section cta-section">
         <h2>How the ARIC Inventory System Works</h2>
         <p style="max-width: 800px; margin: 0 auto; color: #d6e4f0;">
@@ -95,7 +93,6 @@
         </div>
     </div>
 
-    {{-- ✅ Footer --}}
     <footer>
         &copy; {{ date('Y') }} ARIC Inventory System — Bulacan State University
     </footer>

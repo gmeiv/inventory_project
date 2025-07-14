@@ -23,7 +23,6 @@ class ItemController extends Controller
     public function store(Request $request)
 {
     if ($request->serial_number !== $request->serial_number_original) {
-        // User is trying to change serial number → must validate uniqueness
         $request->validate([
             'serial_number' => 'required|unique:items,serial_number',
             'name' => 'required',
@@ -31,7 +30,6 @@ class ItemController extends Controller
             'location' => 'required',
         ]);
     } else {
-        // User is keeping the same serial number
         $request->validate([
             'serial_number' => 'required',
             'name' => 'required',
@@ -43,7 +41,6 @@ class ItemController extends Controller
 
         $data = $request->only(['serial_number', 'name', 'stocks', 'location']);
 
-        // Handle serial_image upload if present
         if ($request->hasFile('serial_image')) {
             $data['serial_image'] = $request->file('serial_image')->store('serial_images', 'public');
         }

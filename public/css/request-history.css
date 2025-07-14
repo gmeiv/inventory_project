@@ -1,4 +1,4 @@
-/* Request History Page Styles */
+
 .accept-requests-container {
     max-width: 1200px;
     width: 95%;
@@ -45,7 +45,7 @@
     text-align: center;
 }
 
-/* Filter Container Styles */
+
 .filter-container {
     background: #0a2c4d;
     padding: 1.5rem;
@@ -86,7 +86,7 @@
     align-items: end;
 }
 
-/* Status Badge Styles */
+
 .status-badge {
     padding: 4px 8px;
     border-radius: 4px;
@@ -115,7 +115,7 @@
     color: #fff; 
 }
 
-/* Table Styles */
+
 .history-table {
     width: 100%;
     border-collapse: collapse;
@@ -144,15 +144,14 @@
     background: #0a2c4d;
 }
 
-/* Column Width Distribution */
-.history-table th:nth-child(1) { width: 25%; } /* User - increased from 15% */
-.history-table th:nth-child(2) { width: 15%; } /* Item */
-.history-table th:nth-child(3) { width: 15%; } /* Serial Number */
-.history-table th:nth-child(4) { width: 20%; } /* Status - increased from 12% */
-.history-table th:nth-child(5) { width: 12%; } /* Request Date - decreased from 18% */
-.history-table th:nth-child(6) { width: 12%; } /* Updated Date - decreased from 18% */
 
-/* Pagination Styles */
+.history-table th:nth-child(1) { width: 25%; }
+.history-table th:nth-child(2) { width: 15%; } 
+.history-table th:nth-child(3) { width: 15%; }
+.history-table th:nth-child(4) { width: 20%; } 
+.history-table th:nth-child(5) { width: 12%; } 
+.history-table th:nth-child(6) { width: 12%; } 
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -176,7 +175,7 @@
     background: #003366;
 }
 
-/* Mobile Responsive */
+
 @media (max-width: 768px) {
     .accept-requests-container {
         width: 98%;

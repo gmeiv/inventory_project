@@ -21,9 +21,6 @@
                 <form action="{{ route('user.browse') }}" method="GET" style="display:inline;">
                     <button type="submit" class="grid-item"><i class="fas fa-box-open"></i> Browse Items</button>
                 </form>
-                <form action="" method="GET" style="display:inline;">
-                    <button type="submit" class="grid-item"><i class="fas fa-hand-holding"></i> Request Borrow</button>
-                </form>
                 <form action="{{ route('user.myBorrowings') }}" method="GET" style="display:inline;">
                     <button type="submit" class="grid-item"><i class="fas fa-clipboard-list"></i> My Borrowings</button>
                 </form>
@@ -41,7 +38,7 @@
         @csrf
     </form>
 
-    <!-- Confirmation Popup -->
+
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
             <h3 id="popupTitle">Confirm Action</h3>
@@ -76,7 +73,7 @@
             popup.style.display = 'none';
         }
 
-        // Close popup when clicking outside
+  
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();

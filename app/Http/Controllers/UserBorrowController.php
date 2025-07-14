@@ -9,17 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserBorrowController extends Controller
 {
-    // Show all items to borrow
     public function browse()
     {
         $items = Item::all();
         return view('user.browse', compact('items'));
     }
 
-    // Handle borrow request
     public function requestBorrow(Request $request, $serial_number)
     {
-        // Optional: Check if already requested
         $existing = BorrowRequest::where('serial_number', $serial_number)
             ->where('user_id', Auth::id())
             ->where('status', 'pending')
@@ -38,14 +35,12 @@ class UserBorrowController extends Controller
         return back()->with('success', 'Borrow request sent for item: ' . $serial_number);
     }
 
-    // Show user's borrowings
     public function showMyBorrowings()
     {
         $myBorrowings = BorrowRequest::where('user_id', Auth::id())->with('user')->get();
         return view('user.my-borrowings', compact('myBorrowings'));
     }
 
-    // Handle returning an item
     public function returnItem($id)
     {
         $borrow = BorrowRequest::where('id', $id)->where('user_id', Auth::id())->where('status', 'approved')->firstOrFail();

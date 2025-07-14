@@ -1,5 +1,4 @@
 
-
 header {
     background: linear-gradient(to right, #003366, #0059b3);
     padding: 24px 0 18px 0;
@@ -43,7 +42,7 @@ nav ul li a:focus {
     transform: scale(1.08);
 }
 
-/* Media Queries */
+
 @media (max-width: 900px) {
     nav ul {
         gap: 0.7rem;
@@ -236,9 +235,7 @@ button:hover {
     margin-left: 3.1rem;
 }
 
-/* Keep your sidebar as is, or update colors for dark theme if needed */
 
-/* Accept Requests Page Styles */
 .accept-requests-container {
     max-width: 700px;
     height: auto;

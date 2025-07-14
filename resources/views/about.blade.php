@@ -13,13 +13,13 @@
 
     <div class="about-wrapper">
 
-        <!-- Logo -->
+    
         <div class="header">
         <h1><span class="highlight">Advanced Robotics and Control Center</span> (ARICC)</h1>
             <h3>Bulacan State University</h3>
         </div>
 
-        <!-- Description -->
+    
         <div class="section description">
             <p>
                 The <strong>Advanced Robotics and Control Center (ARICC)</strong> is established with other 
@@ -40,7 +40,7 @@
             </p>
         </div>
 
-        <!-- Services & Team -->
+       
         <div class="grid-sections">
         <div class="section achievements card">
                 <h2><i class="fas fa-cogs"></i> Services</h2>

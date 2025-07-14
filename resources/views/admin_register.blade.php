@@ -20,7 +20,6 @@
         
         <table class="form-table">
             <tr>
-                <!-- Personal Information -->
                 <td colspan="2">
                     <fieldset>
                         <legend>Personal Information</legend>
@@ -40,7 +39,6 @@
                     </fieldset>
                 </td>
 
-                <!-- Address Information -->
                 <td colspan="2">
                    <fieldset>
                         <legend>Professional Information</legend>
@@ -79,7 +77,6 @@
 
                 </td>
 
-             <!-- Account Information (spanning both columns) -->   
                 <td colspan="1">
                     <fieldset>
                         <legend>Account Information</legend>

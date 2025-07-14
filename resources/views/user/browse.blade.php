@@ -7,25 +7,25 @@
     <link rel="stylesheet" href="{{ asset('css/confirm-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Back Button -->
+
     <a href="{{ url('user.dashboard') }}" class="back-button">
         &larr; Back to Dashboard
     </a>
 
     <div class="items-wrapper">
 
-        <!-- Header -->
+
         <div class="header-row">
             <h1 class="title">Browse Items to Borrow</h1>
             <input type="text" id="searchInput" placeholder="Search by Serial Number or Name..." onkeyup="filterTable()">
         </div>
 
-        <!-- Items Table -->
+      
         <table class="items-table">
             <thead>
                 <tr>
@@ -66,7 +66,7 @@
         </table>
     </div>
 
-    <!-- Confirmation Popup -->
+    
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
             <h3 id="popupTitle">Confirm Action</h3>
@@ -78,12 +78,12 @@
         </div>
     </div>
 
-    <!-- Hidden form for submission -->
+    
     <form id="actionForm" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <!-- Notification Container -->
+   
     <div class="notification-container" id="notificationContainer"></div>
 
     <script>
@@ -103,7 +103,7 @@ function showConfirmPopup(action, serialNumber, itemName) {
     const confirmBtn = document.getElementById('confirmBtn');
     const form = document.getElementById('actionForm');
 
-    const baseRoute = "{{ url('/borrow-request') }}"; // Blade-generated base URL
+    const baseRoute = "{{ url('/borrow-request') }}"; 
 
     if (action === 'borrow') {
         title.textContent = 'Confirm Borrow';
@@ -124,14 +124,13 @@ function showConfirmPopup(action, serialNumber, itemName) {
             popup.style.display = 'none';
         }
 
-        // Close popup when clicking outside
+      
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();
             }
         });
 
-        // Show notification function
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
@@ -151,7 +150,7 @@ function showConfirmPopup(action, serialNumber, itemName) {
             
             container.appendChild(notification);
             
-            // Auto remove after 5 seconds
+           
             setTimeout(() => {
                 removeNotification(notification.querySelector('.notification-close'));
             }, 5000);
@@ -165,7 +164,7 @@ function showConfirmPopup(action, serialNumber, itemName) {
             }, 300);
         }
 
-        // Check for flash messages and show as notifications
+        
         @if (session('success'))
             showNotification("{{ session('success') }}", 'success');
         @endif

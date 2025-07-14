@@ -15,7 +15,7 @@
         </form>
         <h1 class="accept-requests-title">Transaction History</h1>
 
-        <!-- Filter Section -->
+        
         <div class="filter-container">
             <form method="GET" action="{{ route('admin.requestHistory') }}" id="filter-form">
                 <div class="filter-row">
@@ -50,12 +50,12 @@
             </form>
         </div>
 
-        <!-- Results Summary -->
+       
         <div style="color: #cce6ff; margin-bottom: 1rem;">
             Showing {{ $requests->firstItem() ?? 0 }} to {{ $requests->lastItem() ?? 0 }} of {{ $requests->total() }} requests
         </div>
 
-        <!-- History Table -->
+        
         <table class="accept-requests-table history-table">
             <thead>
                 <tr>
@@ -99,7 +99,7 @@
             </tbody>
         </table>
 
-        <!-- Pagination -->
+        
         @if($requests->hasPages())
             <div class="pagination">
                 @if($requests->onFirstPage())

@@ -7,11 +7,11 @@
 </head>
 <body>
 <div class="container py-5">
-    <!-- Back Button -->
+
     <div class="mb-2">
         <a href="{{ route('user.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
     </div>
-    <!-- Title -->
+
     <h2 class="text-center mb-3">Announcement</h2>
 
     @if($announcements->count() > 0)
@@ -27,7 +27,7 @@
     @endif
 </div>
 
-<!-- Removed Add/Edit Modal and JS -->
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
