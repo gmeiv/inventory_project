@@ -15,14 +15,14 @@
 
     
         <div class="header">
-        <h1><span class="highlight">Advanced Robotics and Control Center</span> (ARICC)</h1>
+        <h1><span class="highlight">Advanced Robotics and Intelligent Control Center</span> (ARICC)</h1>
             <h3>Bulacan State University</h3>
         </div>
 
     
         <div class="section description">
             <p>
-                The <strong>Advanced Robotics and Control Center (ARICC)</strong> is established with other 
+                The <strong>Advanced Robotics and Intelligent Control Center (ARICC)</strong> is established with other 
                 Regional Development Centers in Bulacan State University to serve as a hub for innovations or 
                 Research and Development of intelligent systems and robotics. It is envisioned that through the Center, 
                 innovative technologies, relevant support services, technical expertise, necessary infrastructure, and 
