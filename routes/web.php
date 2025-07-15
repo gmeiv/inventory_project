@@ -14,6 +14,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 
+
 Route::get('/', function () {
     return view('home');
 });
@@ -135,4 +136,7 @@ Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
+
+Route::get('/members', [UserRegisterController::class, 'index'])->name('users.index');
+Route::delete('/users/{id}', [UserRegisterController::class, 'destroy'])->name('user.delete');

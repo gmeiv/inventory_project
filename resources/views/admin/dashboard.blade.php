@@ -21,6 +21,10 @@
             <form action="{{ route('admins.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-user-shield"></i> Employee</button>
             </form>
+            <form action="{{ route('users.index') }}" method="GET" style="display:inline;">
+                <button type="submit" class="grid-item"><i class="fas fa-users"></i> Manage Members</button>
+            </form>
+
             <form action="{{ route('items.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-boxes"></i> Items</button>
             </form>
