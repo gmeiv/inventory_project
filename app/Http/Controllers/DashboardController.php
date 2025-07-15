@@ -17,7 +17,7 @@ class DashboardController extends Controller
 
     public function showPendingRequests()
     {
-        $pendingRequests = BorrowRequest::where('status', 'pending')->with('user')->get();
+        $pendingRequests = BorrowRequest::where('status', 'pending')->with('user')->orderBy('created_at', 'desc')->get();
         return view('admins.accept-requests', compact('pendingRequests'));
     }
 
@@ -39,7 +39,7 @@ class DashboardController extends Controller
 
     public function showReturnRequests()
     {
-        $returnRequests = BorrowRequest::where('status', 'returned')->with('user')->get();
+        $returnRequests = BorrowRequest::where('status', 'returned')->with('user')->orderBy('created_at', 'desc')->get();
         return view('admins.return-requests', compact('returnRequests'));
     }
 
