@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <title>Transaction History</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/error-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/request-history.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <div class="accept-requests-container">
-        <form action="{{ route('admin.dashboard') }}" method="GET" style="display:inline; margin-bottom: 1.2rem;">
-            <button type="submit" class="accept-requests-action-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
-        </form>
-        <h1 class="accept-requests-title">Transaction History</h1>
+    <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
-        
+    <div class="items-wrapper">
+        <div class="header-row">
+            <h1 class="title">Transaction History</h1>
+        </div>
+
+        <!-- Filter -->
         <div class="filter-container">
             <form method="GET" action="{{ route('admin.requestHistory') }}" id="filter-form">
                 <div class="filter-row">
@@ -50,13 +53,13 @@
             </form>
         </div>
 
-       
+        <!-- Result Count -->
         <div style="color: #cce6ff; margin-bottom: 1rem;">
             Showing {{ $requests->firstItem() ?? 0 }} to {{ $requests->lastItem() ?? 0 }} of {{ $requests->total() }} requests
         </div>
 
-        
-        <table class="accept-requests-table history-table">
+        <!-- Table -->
+        <table class="items-table history-table">
             <thead>
                 <tr>
                     <th>User</th>
@@ -99,7 +102,7 @@
             </tbody>
         </table>
 
-        
+        <!-- Pagination -->
         @if($requests->hasPages())
             <div class="pagination">
                 @if($requests->onFirstPage())
@@ -125,4 +128,4 @@
         @endif
     </div>
 </body>
-</html> 
+</html>
