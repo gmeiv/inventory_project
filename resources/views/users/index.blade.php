@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Registered Members</title>
     <link rel="stylesheet" href="{{ asset('css/users.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -16,9 +17,7 @@
             <input type="text" id="searchInput" placeholder="Search by Name or Email..." onkeyup="filterTable()">
         </div>
 
-        <a href="{{ route('user_register') }}">
-            <button class="add-button"><i class="fas fa-user-plus"></i> Add Member</button>
-        </a>
+
 
         <table class="items-table">
             <thead>
