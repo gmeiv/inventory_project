@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $items = Item::orderBy('created_at', 'desc')->get();
         return view('items.index', compact('items'));
     }
 

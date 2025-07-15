@@ -11,7 +11,7 @@ class UserBorrowController extends Controller
 {
     public function browse()
     {
-        $items = Item::all();
+        $items = Item::orderBy('created_at', 'desc')->get();
         return view('user.browse', compact('items'));
     }
 
