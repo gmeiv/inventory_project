@@ -152,6 +152,16 @@
 .history-table th:nth-child(5) { width: 12%; } 
 .history-table th:nth-child(6) { width: 12%; } 
 
+th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+th.sortable:hover {
+    background: #003366;
+    color: #66ccff;
+}
+
 .pagination {
     display: flex;
     justify-content: center;

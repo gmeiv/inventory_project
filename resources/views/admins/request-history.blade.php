@@ -62,12 +62,12 @@
         <table class="items-table history-table">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Item</th>
-                    <th>Serial Number</th>
-                    <th>Status</th>
-                    <th>Request Date</th>
-                    <th>Updated Date</th>
+                    <th class="sortable" onclick="sortTable(0)">User <span id="sort-indicator-0"></span></th>
+                    <th class="sortable" onclick="sortTable(1)">Item <span id="sort-indicator-1"></span></th>
+                    <th class="sortable" onclick="sortTable(2)">Serial Number <span id="sort-indicator-2"></span></th>
+                    <th class="sortable" onclick="sortTable(3)">Status <span id="sort-indicator-3"></span></th>
+                    <th class="sortable" onclick="sortTable(4)">Request Date <span id="sort-indicator-4"></span></th>
+                    <th class="sortable" onclick="sortTable(5)">Updated Date <span id="sort-indicator-5"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -128,4 +128,83 @@
         @endif
     </div>
 </body>
+<script>
+let lastSortedCol = null;
+let lastSortDir = 'asc';
+
+document.addEventListener('DOMContentLoaded', function() {
+    window.sortTable = function(n) {
+        const table = document.querySelector('.history-table');
+        const tbody = table.tBodies[0];
+        let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 6);
+        if (rows.length < 2) return; // Nothing to sort
+
+        // Determine direction
+        let dir = 'asc';
+        if (lastSortedCol === n && lastSortDir === 'asc') {
+            dir = 'desc';
+        }
+        lastSortedCol = n;
+        lastSortDir = dir;
+
+        // Remove all indicators
+        for (let i = 0; i < 6; i++) {
+            const indicator = document.getElementById('sort-indicator-' + i);
+            if (indicator) indicator.textContent = '';
+        }
+        // Set indicator for this column
+        const indicator = document.getElementById('sort-indicator-' + n);
+        if (indicator) indicator.textContent = dir === 'asc' ? '▲' : '▼';
+
+        let switching = true;
+        while (switching) {
+            switching = false;
+            let shouldSwitch = false;
+            for (let i = 0; i < rows.length - 1; i++) {
+                let x = rows[i].getElementsByTagName('TD')[n];
+                let y = rows[i + 1].getElementsByTagName('TD')[n];
+                if (!x || !y) continue;
+                let xContent = x.textContent.trim();
+                let yContent = y.textContent.trim();
+                let compareResult = 0;
+                if (n === 4 || n === 5) { // Date columns
+                    let xDate = Date.parse(xContent);
+                    let yDate = Date.parse(yContent);
+                    if (!isNaN(xDate) && !isNaN(yDate)) {
+                        compareResult = xDate - yDate;
+                    } else {
+                        compareResult = xContent.localeCompare(yContent, undefined, {sensitivity: 'base'});
+                    }
+                } else if (n === 2) { // Serial Number column
+                    let xNum = parseFloat(xContent.replace(/[^\d.\-]/g, ''));
+                    let yNum = parseFloat(yContent.replace(/[^\d.\-]/g, ''));
+                    if (!isNaN(xNum) && !isNaN(yNum)) {
+                        compareResult = xNum - yNum;
+                    } else {
+                        compareResult = xContent.localeCompare(yContent, undefined, {sensitivity: 'base'});
+                    }
+                } else { // Alphabetical for all other columns
+                    compareResult = xContent.localeCompare(yContent, undefined, {sensitivity: 'base'});
+                }
+                if (dir === 'asc') {
+                    if (compareResult > 0) {
+                        shouldSwitch = i;
+                        break;
+                    }
+                } else if (dir === 'desc') {
+                    if (compareResult < 0) {
+                        shouldSwitch = i;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch !== false) {
+                tbody.insertBefore(rows[shouldSwitch + 1], rows[shouldSwitch]);
+                rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 6);
+                switching = true;
+            }
+        }
+    }
+});
+</script>
 </html>

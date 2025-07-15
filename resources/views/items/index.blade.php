@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Items Inventory</title>
     <link rel="stylesheet" href="{{ asset('css/items.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/request-history.css') }}">
     <link rel="stylesheet" href="{{ asset('css/error-popup.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -28,14 +29,14 @@
             <div class="alert">{{ session('success') }}</div>
         @endif
 
-        <table class="items-table">
+        <table class="items-table history-table">
             <thead>
                 <tr>
                     <th>Image</th>
-                    <th>Serial Number</th>
-                    <th>Name</th>
-                    <th>Stocks</th>
-                    <th>Location</th>
+                    <th class="sortable" onclick="sortTable(1)">Serial Number <span id="sort-indicator-1"></span></th>
+                    <th class="sortable" onclick="sortTable(2)">Name <span id="sort-indicator-2"></span></th>
+                    <th class="sortable" onclick="sortTable(3)">Stocks <span id="sort-indicator-3"></span></th>
+                    <th class="sortable" onclick="sortTable(4)">Location <span id="sort-indicator-4"></span></th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -191,7 +192,7 @@
 
         function filterTable() {
             const input = document.getElementById('searchInput').value.toUpperCase();
-            const rows = document.querySelectorAll('.items-table tbody tr');
+            const rows = document.querySelectorAll('.history-table tbody tr');
             rows.forEach(row => {
                 const serial_number = row.cells[1].textContent.toUpperCase();
                 const name = row.cells[2].textContent.toUpperCase();
@@ -199,6 +200,76 @@
             });
         }
     </script>
+
+    <script>
+let lastSortedCol = null;
+let lastSortDir = 'asc';
+
+function sortTable(n) {
+    const table = document.querySelector('.history-table');
+    const tbody = table.tBodies[0];
+    let rows = Array.from(tbody.querySelectorAll('tr'));
+    if (rows.length < 2) return;
+
+    // Determine direction
+    let dir = 'asc';
+    if (lastSortedCol === n && lastSortDir === 'asc') {
+        dir = 'desc';
+    }
+    lastSortedCol = n;
+    lastSortDir = dir;
+
+    // Remove all indicators
+    for (let i = 0; i < 6; i++) {
+        const indicator = document.getElementById('sort-indicator-' + i);
+        if (indicator) indicator.textContent = '';
+    }
+    // Set indicator for this column
+    const indicator = document.getElementById('sort-indicator-' + n);
+    if (indicator) indicator.textContent = dir === 'asc' ? '▲' : '▼';
+
+    let switching = true;
+    while (switching) {
+        switching = false;
+        let shouldSwitch = false;
+        for (let i = 0; i < rows.length - 1; i++) {
+            let x = rows[i].getElementsByTagName('TD')[n];
+            let y = rows[i + 1].getElementsByTagName('TD')[n];
+            if (!x || !y) continue;
+            let xContent = x.textContent.trim();
+            let yContent = y.textContent.trim();
+            let compareResult = 0;
+            if (n === 1 || n === 3) { // Serial Number or Stocks columns
+                let xNum = parseFloat(xContent.replace(/[^\d.\-]/g, ''));
+                let yNum = parseFloat(yContent.replace(/[^\d.\-]/g, ''));
+                if (!isNaN(xNum) && !isNaN(yNum)) {
+                    compareResult = xNum - yNum;
+                } else {
+                    compareResult = xContent.localeCompare(yContent, undefined, {sensitivity: 'base'});
+                }
+            } else { // Alphabetical for all other columns
+                compareResult = xContent.localeCompare(yContent, undefined, {sensitivity: 'base'});
+            }
+            if (dir === 'asc') {
+                if (compareResult > 0) {
+                    shouldSwitch = i;
+                    break;
+                }
+            } else if (dir === 'desc') {
+                if (compareResult < 0) {
+                    shouldSwitch = i;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch !== false) {
+            tbody.insertBefore(rows[shouldSwitch + 1], rows[shouldSwitch]);
+            rows = Array.from(tbody.querySelectorAll('tr'));
+            switching = true;
+        }
+    }
+}
+</script>
 
     @if ($errors->any())
         <script>
