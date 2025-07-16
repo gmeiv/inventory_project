@@ -47,7 +47,7 @@
 
 
 .filter-container {
-    background: #0a2c4d;
+    background: #002b5c;
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -145,17 +145,19 @@
 }
 
 
-.history-table th:nth-child(1) { width: 25%; }
-.history-table th:nth-child(2) { width: 15%; } 
-.history-table th:nth-child(3) { width: 15%; }
-.history-table th:nth-child(4) { width: 20%; } 
-.history-table th:nth-child(5) { width: 12%; } 
-.history-table th:nth-child(6) { width: 12%; } 
+.history-table th:nth-child(1), .history-table td:nth-child(1) { width: 25%; }
+.history-table th:nth-child(2), .history-table td:nth-child(2) { width: 15%; }
+.history-table th:nth-child(3), .history-table td:nth-child(3) { width: 15%; }
+.history-table th:nth-child(4), .history-table td:nth-child(4) { width: 15%; }
+.history-table th:nth-child(5), .history-table td:nth-child(5) { width: 10%; }
+.history-table th:nth-child(6), .history-table td:nth-child(6) { width: 10%; }
+.history-table th:nth-child(7), .history-table td:nth-child(7) { width: 10%; text-align: center; }
 
 th.sortable {
     cursor: pointer;
     user-select: none;
     transition: background 0.2s;
+    text-align: center;
 }
 th.sortable:hover {
     background: #003366;
@@ -183,6 +185,11 @@ th.sortable:hover {
 
 .pagination a:hover {
     background: #003366;
+}
+
+.approved-by-col {
+    min-width: 140px;
+    text-align: center;
 }
 
 

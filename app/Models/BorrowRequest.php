@@ -25,4 +25,9 @@ class BorrowRequest extends Model
     {
         return $this->belongsTo(Item::class, 'serial_number', 'serial_number');
     }
+
+    public function approvedByAdmin()
+    {
+        return $this->belongsTo(\App\Models\Admin::class, 'approved_by_admin_id');
+    }
 }

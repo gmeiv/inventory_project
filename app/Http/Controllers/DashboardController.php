@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Item;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -38,6 +39,7 @@ class DashboardController extends Controller
     $item->save();
 
     $request->status = 'approved';
+    $request->approved_by_admin_id = Auth::guard('admin')->id();
     $request->save();
 
     // ✅ Get image URL (adjust depending on how you store images)
@@ -84,6 +86,7 @@ class DashboardController extends Controller
     $request = BorrowRequest::with(['user', 'item'])->findOrFail($id);
 
     $request->status = 'confirmed_returned';
+    $request->approved_by_admin_id = Auth::guard('admin')->id();
     $request->save();
 
     // ✅ Send email to the user who returned the item

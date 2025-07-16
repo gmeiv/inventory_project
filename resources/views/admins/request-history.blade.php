@@ -68,6 +68,9 @@
                     <th class="sortable" onclick="sortTable(3)">Status <span id="sort-indicator-3"></span></th>
                     <th class="sortable" onclick="sortTable(4)">Request Date <span id="sort-indicator-4"></span></th>
                     <th class="sortable" onclick="sortTable(5)">Updated Date <span id="sort-indicator-5"></span></th>
+                    <th class="sortable approved-by-col" onclick="sortTable(6)">
+                        Approved By <span id="sort-indicator-6"></span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -93,10 +96,17 @@
                         </td>
                         <td>{{ $request->created_at->format('M d, Y g:i A') }}</td>
                         <td>{{ $request->updated_at->format('M d, Y g:i A') }}</td>
+                        <td class="approved-by-col">
+                            @if($request->approvedByAdmin)
+                                {{ $request->approvedByAdmin->firstname }} {{ $request->approvedByAdmin->surname }}
+                            @else
+                                <span style="color: #999;">-</span>
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="accept-requests-empty">No requests found.</td>
+                        <td colspan="7" class="accept-requests-empty">No requests found.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -136,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.sortTable = function(n) {
         const table = document.querySelector('.history-table');
         const tbody = table.tBodies[0];
-        let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 6);
+        let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 7);
         if (rows.length < 2) return; // Nothing to sort
 
         // Determine direction
@@ -148,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lastSortDir = dir;
 
         // Remove all indicators
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
             const indicator = document.getElementById('sort-indicator-' + i);
             if (indicator) indicator.textContent = '';
         }
@@ -200,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (shouldSwitch !== false) {
                 tbody.insertBefore(rows[shouldSwitch + 1], rows[shouldSwitch]);
-                rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 6);
+                rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 7);
                 switching = true;
             }
         }

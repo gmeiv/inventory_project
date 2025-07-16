@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('role'); // e.g. Student, Faculty, Staff, Others
             $table->string('department');
-            $table->string('course');
-            $table->string('year_level');
+            $table->string('course')->nullable();
+            $table->string('year_level')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

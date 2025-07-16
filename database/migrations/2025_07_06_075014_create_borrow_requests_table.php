@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('serial_number');
             $table->unsignedBigInteger('user_id');
             $table->string('status')->default('pending'); // pending, approved, rejected
+            $table->unsignedBigInteger('approved_by_admin_id')->nullable(); // admin who approved/processed
             $table->timestamps();
         });
     }
