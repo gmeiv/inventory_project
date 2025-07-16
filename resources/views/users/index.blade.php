@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Registered Members</title>
     <link rel="stylesheet" href="{{ asset('css/users.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -16,18 +17,14 @@
             <input type="text" id="searchInput" placeholder="Search by Name or Email..." onkeyup="filterTable()">
         </div>
 
-        <a href="{{ route('user_register') }}">
-            <button class="add-button"><i class="fas fa-user-plus"></i> Add Member</button>
-        </a>
-
         <table class="items-table">
             <thead>
                 <tr>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Role</th>
                     <th>Department</th>
-                    <th>Course</th>
-                    <th>Year Level</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,9 +33,9 @@
                 <tr>
                     <td>{{ $user->surname }}, {{ $user->firstname }} {{ $user->middlename }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->phone_number }}</td>
+                    <td>{{ $user->role }}</td>
                     <td>{{ $user->department }}</td>
-                    <td>{{ $user->course }}</td>
-                    <td>{{ $user->year_level }}</td>
                     <td>
                         <form action="{{ route('user.delete', $user->id) }}" method="POST" onsubmit="return confirm('Delete this member?')">
                             @csrf
