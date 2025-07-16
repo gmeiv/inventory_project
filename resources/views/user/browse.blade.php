@@ -9,54 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        .filter-btn, .arrow-btn {
-            background: linear-gradient(to right, #004080, #007bff);
-            color: white;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-        }
-        .filter-btn:hover, .arrow-btn:hover {
-            background: linear-gradient(to right, #003366, #0056b3);
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            border: 1px solid #ccc;
-            z-index: 99;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-top: 5px;
-        }
-        .dropdown-content a {
-            color: #000;
-            padding: 10px 12px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-        .header-tools {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .header-tools input[type="text"] {
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-            width: 250px;
-        }
-    </style>
 </head>
 <body>
 
@@ -65,8 +17,8 @@
 <div class="items-wrapper">
     <h1 class="title">Browse Items to Borrow</h1>
 
-    <div class="header-tools">
-        <input type="text" id="searchInput" placeholder="Search by Serial Number or Name..." onkeyup="filterTable()">
+    <div class="header-tools" style="display: flex; gap: 8px; margin-bottom: 15px;">
+        <input type="text" id="searchInput" placeholder="Search by Serial Number or Name..." onkeyup="filterTable()" style="padding: 8px; border-radius: 5px; border: none; width: 250px;">
 
         <div class="filter-dropdown">
             <button onclick="toggleFilterDropdown()" class="filter-btn">
@@ -76,7 +28,6 @@
                 <a href="#" onclick="setSortField(1)">Serial Number</a>
                 <a href="#" onclick="setSortField(2)">Name</a>
                 <a href="#" onclick="setSortField(3)">Stocks</a>
-                <a href="#" onclick="setSortField(4)">Location</a>
             </div>
         </div>
 
@@ -87,40 +38,38 @@
 
     <table class="history-table">
         <thead>
-        <tr>
-            <th>Image</th>
-            <th>Serial Number</th>
-            <th>Name</th>
-            <th>Stocks</th>
-            <th>Location</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>Image</th>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Stocks</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach($items as $item)
-            <tr class="{{ $item->stocks <= 1 ? 'low-stock' : '' }}">
-                <td>
-                    @if($item->serial_image)
-                        <img src="{{ asset('storage/' . $item->serial_image) }}" alt="Serial Image" width="100" height="100" style="object-fit: cover;">
-                    @else
-                        N/A
-                    @endif
-                </td>
-                <td>{{ $item->serial_number }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->stocks }}</td>
-                <td>{{ $item->location }}</td>
-                <td>
-                    @if($item->stocks > 0)
-                        <button type="button" class="action-btn-borrow" onclick="showConfirmPopup('borrow', '{{ $item->serial_number }}', '{{ $item->name }}')">
-                            <i class="fas fa-hand-paper"></i> Borrow
-                        </button>
-                    @else
-                        <span class="out-of-stock">Out of Stock</span>
-                    @endif
-                </td>
-            </tr>
-        @endforeach
+            @foreach($items as $item)
+                <tr class="{{ $item->stocks <= 1 ? 'low-stock' : '' }}">
+                    <td>
+                        @if($item->serial_image)
+                            <img src="{{ asset('storage/' . $item->serial_image) }}" alt="Serial Image" width="100" height="100" style="object-fit: cover;">
+                        @else
+                            N/A
+                        @endif
+                    </td>
+                    <td>{{ $item->serial_number }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->stocks }}</td>
+                    <td>
+                        @if($item->stocks > 0)
+                            <button type="button" class="action-btn-borrow" onclick="showConfirmPopup('borrow', '{{ $item->serial_number }}', '{{ $item->name }}')">
+                                <i class="fas fa-hand-paper"></i> Borrow
+                            </button>
+                        @else
+                            <span class="out-of-stock">Out of Stock</span>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
@@ -220,8 +169,7 @@
     }
 
     function hideConfirmPopup() {
-        const popup = document.getElementById('confirmPopup');
-        popup.style.display = 'none';
+        document.getElementById('confirmPopup').style.display = 'none';
     }
 
     document.getElementById('confirmPopup').addEventListener('click', function (e) {
