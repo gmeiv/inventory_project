@@ -23,6 +23,7 @@ class DashboardController extends Controller
         return view('admins.accept-requests', compact('pendingRequests'));
     }
 
+    
 
  public function acceptRequest($id)
 {
@@ -79,12 +80,36 @@ class DashboardController extends Controller
 
 
     public function confirmReturn($id)
-    {
-        $request = BorrowRequest::findOrFail($id);
-        $request->status = 'confirmed_returned';
-        $request->save();
-        return redirect()->back()->with('success', 'Return confirmed.');
+{
+    $request = BorrowRequest::with(['user', 'item'])->findOrFail($id);
+
+    $request->status = 'confirmed_returned';
+    $request->save();
+
+    // ✅ Send email to the user who returned the item
+    if ($request->user && $request->item) {
+        Mail::send([], [], function ($message) use ($request) {
+            $message->to($request->user->email)
+                ->subject('Your Item Return Has Been Confirmed')
+                ->html("
+                    <p>Hello <strong>{$request->user->firstname}</strong>,</p>
+
+                    <p>We have successfully confirmed the return of the item <strong>\"{$request->item->name}\"</strong>.</p>
+
+                    <p><strong>Serial Number:</strong> {$request->serial_number}</p>
+                    <p><strong>Quantity Returned:</strong> {$request->quantity}</p>
+                    <p><strong>Status:</strong> Confirmed Returned</p>
+
+                    <p>Thank you for responsibly returning the item.</p>
+
+                    <p><strong>ARICC Admin Team</strong></p>
+                ");
+        });
     }
+
+    return redirect()->back()->with('success', 'Return confirmed and user notified.');
+}
+
 
 
     public function showRequestHistory(Request $request)
