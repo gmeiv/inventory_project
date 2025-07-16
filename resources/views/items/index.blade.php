@@ -14,58 +14,6 @@
             color: #888;
             cursor: not-allowed;
         }
-
-        .filter-dropdown {
-            position: relative;
-        }
-
-        .filter-btn {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 160px;
-            border: 1px solid #ccc;
-            z-index: 99;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-top: 5px;
-        }
-
-        .dropdown-content a {
-            color: #000;
-            padding: 10px 12px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .arrow-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .arrow-btn:hover {
-            background-color: #218838;
-        }
     </style>
 </head>
 <body>
@@ -91,6 +39,10 @@
 
         <button class="arrow-btn" onclick="toggleSortDirection()">
             <span id="arrowIcon">Sort ↑</span>
+        </button>
+
+        <button onclick="openAddModal()" class="add-btn" type="button">
+            <i class="fas fa-plus"></i> Add Item
         </button>
     </div>
 
@@ -144,6 +96,37 @@
         @endforeach
         </tbody>
     </table>
+
+    <div class="add-edit-wrapper">
+        <div id="itemModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Add Item</h2>
+                <form id="itemForm" method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="serial_number" id="serialNumber">
+                    <input type="hidden" name="serial_number_original" id="serial_number_original">
+
+                    <label for="serial_image">Serial Image</label>
+                    <input type="file" name="serial_image" id="serial_image" accept="image/*">
+
+                    <label for="serial_number">Serial Number</label>
+                    <input type="text" name="serial_number" id="serial_number" required disabled>
+
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" required>
+
+                    <label for="stocks">Stocks</label>
+                    <input type="number" name="stocks" id="stocks" required min="0">
+
+                    <label for="location">Location</label>
+                    <input type="text" name="location" id="location" required>
+
+                    <button type="submit" class="modal-btn">Save Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="errorPopup">
         <p><strong>The serial number is already taken.</strong></p>
@@ -207,7 +190,68 @@
         if (!event.target.matches('.filter-btn')) {
             document.getElementById('filterOptions').style.display = 'none';
         }
+
+        const modal = document.getElementById('itemModal');
+        if (event.target === modal) {
+            closeModal();
+        }
     };
+
+    function openAddModal() {
+        const form = document.getElementById('itemForm');
+        document.getElementById('modalTitle').innerText = 'Add Item';
+        form.action = "{{ route('items.store') }}";
+
+        const methodField = form.querySelector('input[name="_method"]');
+        if (methodField) methodField.remove();
+
+        document.getElementById('serialNumber').value = '';
+        document.getElementById('serial_number_original').value = '';
+        document.getElementById('serial_number').value = '';
+        document.getElementById('serial_number').disabled = false;
+
+        document.getElementById('name').value = '';
+        document.getElementById('stocks').value = '';
+        document.getElementById('location').value = '';
+
+        document.getElementById('itemModal').style.display = 'block';
+    }
+
+    function openEditModal(serialNumber, name, stocks, location, actionUrl) {
+        const form = document.getElementById('itemForm');
+        document.getElementById('modalTitle').innerText = 'Edit Item';
+        form.action = actionUrl;
+
+        let methodField = form.querySelector('input[name="_method"]');
+        if (!methodField) {
+            methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'PUT';
+            form.appendChild(methodField);
+        } else {
+            methodField.value = 'PUT';
+        }
+
+        document.getElementById('serialNumber').value = serialNumber;
+        document.getElementById('serial_number_original').value = serialNumber;
+        document.getElementById('serial_number').value = serialNumber;
+        document.getElementById('serial_number').disabled = true;
+
+        document.getElementById('name').value = name;
+        document.getElementById('stocks').value = stocks;
+        document.getElementById('location').value = location;
+
+        document.getElementById('itemModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('itemModal').style.display = 'none';
+    }
+
+    function closeErrorPopup() {
+        document.getElementById('errorPopup').style.display = 'none';
+    }
 </script>
 </body>
 </html>
