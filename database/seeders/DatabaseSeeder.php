@@ -22,18 +22,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Create a test user with the correct columns
-        \App\Models\User::create([
-            'surname' => 'Test',
-            'middlename' => 'User',
-            'firstname' => 'Example',
-            'department' => 'IT',
-            'course' => 'CS',
-            'year_level' => '4',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
-        ]);
-
         // Create default admin if not exists
         if (!Admin::where('email', 'admin')->exists()) {
             Admin::create([
