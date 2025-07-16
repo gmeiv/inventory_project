@@ -17,16 +17,14 @@
             <input type="text" id="searchInput" placeholder="Search by Name or Email..." onkeyup="filterTable()">
         </div>
 
-
-
         <table class="items-table">
             <thead>
                 <tr>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Role</th>
                     <th>Department</th>
-                    <th>Course</th>
-                    <th>Year Level</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -35,9 +33,9 @@
                 <tr>
                     <td>{{ $user->surname }}, {{ $user->firstname }} {{ $user->middlename }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->phone_number }}</td>
+                    <td>{{ $user->role }}</td>
                     <td>{{ $user->department }}</td>
-                    <td>{{ $user->course }}</td>
-                    <td>{{ $user->year_level }}</td>
                     <td>
                         <form action="{{ route('user.delete', $user->id) }}" method="POST" onsubmit="return confirm('Delete this member?')">
                             @csrf
