@@ -6,7 +6,6 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-
 class ItemController extends Controller
 {
     public function index()
@@ -21,25 +20,26 @@ class ItemController extends Controller
     }
 
     public function store(Request $request)
-{
-    if ($request->serial_number !== $request->serial_number_original) {
-        $request->validate([
-            'serial_number' => 'required|unique:items,serial_number',
-            'name' => 'required',
-            'stocks' => 'required|integer|min:0',
-            'location' => 'required',
-        ]);
-    } else {
-        $request->validate([
-            'serial_number' => 'required',
-            'name' => 'required',
-            'stocks' => 'required|integer|min:0',
-            'location' => 'required',
-        ]);
-    }
-    
+    {
+        if ($request->serial_number !== $request->serial_number_original) {
+            $request->validate([
+                'serial_number' => 'required|unique:items,serial_number',
+                'name' => 'required',
+                'stocks' => 'required|integer|min:0',
+                'location' => 'required',
+                'category' => 'required|string|max:255'
+            ]);
+        } else {
+            $request->validate([
+                'serial_number' => 'required',
+                'name' => 'required',
+                'stocks' => 'required|integer|min:0',
+                'location' => 'required',
+                'category' => 'required|string|max:255'
+            ]);
+        }
 
-        $data = $request->only(['serial_number', 'name', 'stocks', 'location']);
+        $data = $request->only(['serial_number', 'name', 'stocks', 'location', 'category']);
 
         if ($request->hasFile('serial_image')) {
             $data['serial_image'] = $request->file('serial_image')->store('serial_images', 'public');
@@ -56,40 +56,41 @@ class ItemController extends Controller
     }
 
     public function update(Request $request, $serial_number)
-{
-    if ($request->serial_number !== $request->serial_number_original) {
-        $request->validate([
-            'serial_number' => 'required|unique:items,serial_number',
-            'name' => 'required',
-            'stocks' => 'required|integer|min:0',
-            'location' => 'required',
-        ]);
-    } else {
-        $request->validate([
-            'serial_number' => 'required',
-            'name' => 'required',
-            'stocks' => 'required|integer|min:0',
-            'location' => 'required',
-        ]);
+    {
+        if ($request->serial_number !== $request->serial_number_original) {
+            $request->validate([
+                'serial_number' => 'required|unique:items,serial_number',
+                'name' => 'required',
+                'stocks' => 'required|integer|min:0',
+                'location' => 'required',
+                'category' => 'required|string|max:255'
+            ]);
+        } else {
+            $request->validate([
+                'serial_number' => 'required',
+                'name' => 'required',
+                'stocks' => 'required|integer|min:0',
+                'location' => 'required',
+                'category' => 'required|string|max:255'
+            ]);
+        }
+
+        $item = Item::where('serial_number', $serial_number)->firstOrFail();
+
+        $item->serial_number = $request->serial_number;
+        $item->name = $request->name;
+        $item->stocks = $request->stocks;
+        $item->location = $request->location;
+        $item->category = $request->category;
+
+        if ($request->hasFile('serial_image')) {
+            $item->serial_image = $request->file('serial_image')->store('serial_images', 'public');
+        }
+
+        $item->save();
+
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
     }
-
-    $item = Item::where('serial_number', $serial_number)->firstOrFail();
-
-    $item->serial_number = $request->serial_number;
-    $item->name = $request->name;
-    $item->stocks = $request->stocks;
-    $item->location = $request->location;
-
-    if ($request->hasFile('serial_image')) {
-        $path = $request->file('serial_image')->store('serial_images', 'public');
-        $item->serial_image = $path;
-    }
-
-    $item->save();
-
-    return redirect()->route('items.index')->with('success', 'Item updated successfully.');
-}
-
 
     public function destroy(Item $item)
     {

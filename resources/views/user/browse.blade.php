@@ -18,7 +18,7 @@
     <h1 class="title">Browse Items to Borrow</h1>
 
     <div class="header-tools" style="display: flex; gap: 8px; margin-bottom: 15px;">
-        <input type="text" id="searchInput" placeholder="Search by Serial Number or Name..." onkeyup="filterTable()" style="padding: 8px; border-radius: 5px; border: none; width: 250px;">
+        <input type="text" id="searchInput" placeholder="Search by Serial Number, Name, or Category..." onkeyup="filterTable()" style="padding: 8px; border-radius: 5px; border: none; width: 280px;">
 
         <div class="filter-dropdown">
             <button onclick="toggleFilterDropdown()" class="filter-btn">
@@ -27,7 +27,8 @@
             <div id="filterOptions" class="dropdown-content">
                 <a href="#" onclick="setSortField(1)">Serial Number</a>
                 <a href="#" onclick="setSortField(2)">Name</a>
-                <a href="#" onclick="setSortField(3)">Stocks</a>
+                <a href="#" onclick="setSortField(3)">Category</a>
+                <a href="#" onclick="setSortField(4)">Stocks</a>
             </div>
         </div>
 
@@ -42,6 +43,7 @@
                 <th>Image</th>
                 <th>Serial Number</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Stocks</th>
                 <th>Action</th>
             </tr>
@@ -58,6 +60,7 @@
                     </td>
                     <td>{{ $item->serial_number }}</td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ $item->category }}</td>
                     <td>{{ $item->stocks }}</td>
                     <td>
                         @if($item->stocks > 0)
@@ -142,7 +145,8 @@
         rows.forEach(row => {
             const serial_number = row.cells[1].textContent.toUpperCase();
             const name = row.cells[2].textContent.toUpperCase();
-            row.style.display = (serial_number.includes(input) || name.includes(input)) ? '' : 'none';
+            const category = row.cells[3].textContent.toUpperCase();
+            row.style.display = (serial_number.includes(input) || name.includes(input) || category.includes(input)) ? '' : 'none';
         });
     }
 
