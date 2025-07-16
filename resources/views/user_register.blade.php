@@ -40,7 +40,12 @@
                             <legend>Additional Information</legend>
                             <div class="form-group">
                                 <label for="phone_number">Phone Number</label>
-                                <input type="text" name="phone_number" id="phone_number" required>
+                                <input type="text" name="phone_number" id="phone_number"
+                                       pattern="[0-9]*"
+                                       inputmode="numeric"
+                                       maxlength="11"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                       required>
                             </div>
                             <div class="form-group">
                                 <label for="role">Position/Role</label>
