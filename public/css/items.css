@@ -210,4 +210,56 @@ body {
     cursor: pointer;
 }
 
+input[disabled] {
+    background-color: #f0f0f0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-btn,
+.arrow-btn {
+    background: linear-gradient(to right, #004080, #007bff);
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.filter-btn:hover,
+.arrow-btn:hover {
+    background: linear-gradient(to right, #003366, #0056b3);
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    border: 1px solid #ccc;
+    z-index: 99;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 5px;
+}
+
+.dropdown-content a {
+    color: #000;
+    padding: 10px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
 
