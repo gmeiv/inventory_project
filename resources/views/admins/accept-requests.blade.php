@@ -32,6 +32,8 @@
                 <tr>
                     <th>User</th>
                     <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Borrow Until</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -46,6 +48,8 @@
                                 <span style="color: #999;">Item not found</span>
                             @endif
                         </td>
+                        <td>{{ $request->quantity ?? '-' }}</td>
+                        <td>{{ $request->borrow_until ? \Carbon\Carbon::parse($request->borrow_until)->format('M d, Y') : '-' }}</td>
                         <td>
                             <button type="button" class="action-btn confirm" onclick="showConfirmPopup('accept', {{ $request->id }}, '{{ $request->user->firstname ?? 'Unknown' }} {{ $request->user->surname ?? '' }}', '{{ $request->item->name ?? 'Unknown Item' }}')">
                                 <i class="fas fa-check"></i> Accept Request
@@ -54,7 +58,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="accept-requests-empty">No pending requests.</td>
+                        <td colspan="5" class="accept-requests-empty">No pending requests.</td>
                     </tr>
                 @endforelse
             </tbody>

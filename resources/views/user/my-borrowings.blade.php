@@ -19,6 +19,8 @@
             <thead>
                 <tr>
                     <th>Item Serial Number</th>
+                    <th>Quantity</th>
+                    <th>Borrow Until</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -27,6 +29,8 @@
                 @forelse ($myBorrowings as $borrow)
                     <tr>
                         <td>{{ $borrow->serial_number }}</td>
+                        <td>{{ $borrow->quantity ?? '-' }}</td>
+                        <td>{{ $borrow->borrow_until ? \Carbon\Carbon::parse($borrow->borrow_until)->format('M d, Y') : '-' }}</td>
                         <td>
                             @if($borrow->status === 'returned')
                                 Pending
@@ -48,7 +52,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="accept-requests-empty">You have not borrowed any items.</td>
+                        <td colspan="5" class="accept-requests-empty">You have not borrowed any items.</td>
                     </tr>
                 @endforelse
             </tbody>

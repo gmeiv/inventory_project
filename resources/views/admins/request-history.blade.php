@@ -65,11 +65,13 @@
                     <th class="sortable" onclick="sortTable(0)">User <span id="sort-indicator-0"></span></th>
                     <th class="sortable" onclick="sortTable(1)">Item <span id="sort-indicator-1"></span></th>
                     <th class="sortable" onclick="sortTable(2)">Serial Number <span id="sort-indicator-2"></span></th>
-                    <th class="sortable" onclick="sortTable(3)">Status <span id="sort-indicator-3"></span></th>
-                    <th class="sortable" onclick="sortTable(4)">Request Date <span id="sort-indicator-4"></span></th>
-                    <th class="sortable" onclick="sortTable(5)">Updated Date <span id="sort-indicator-5"></span></th>
-                    <th class="sortable approved-by-col" onclick="sortTable(6)">
-                        Approved By <span id="sort-indicator-6"></span>
+                    <th class="sortable" onclick="sortTable(3)">Quantity <span id="sort-indicator-3"></span></th>
+                    <th class="sortable" onclick="sortTable(4)">Borrow Until <span id="sort-indicator-4"></span></th>
+                    <th class="sortable" onclick="sortTable(5)">Status <span id="sort-indicator-5"></span></th>
+                    <th class="sortable" onclick="sortTable(6)">Request Date <span id="sort-indicator-6"></span></th>
+                    <th class="sortable" onclick="sortTable(7)">Updated Date <span id="sort-indicator-7"></span></th>
+                    <th class="sortable approved-by-col" onclick="sortTable(8)">
+                        Approved By <span id="sort-indicator-8"></span>
                     </th>
                 </tr>
             </thead>
@@ -89,6 +91,8 @@
                             @endif
                         </td>
                         <td>{{ $request->serial_number }}</td>
+                        <td>{{ $request->quantity ?? '-' }}</td>
+                        <td>{{ $request->borrow_until ? \Carbon\Carbon::parse($request->borrow_until)->format('M d, Y') : '-' }}</td>
                         <td>
                             <span class="status-badge status-{{ $request->status }}">
                                 {{ ucfirst(str_replace('_', ' ', $request->status)) }}
@@ -106,7 +110,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="accept-requests-empty">No requests found.</td>
+                        <td colspan="9" class="accept-requests-empty">No requests found.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -146,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.sortTable = function(n) {
         const table = document.querySelector('.history-table');
         const tbody = table.tBodies[0];
-        let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 7);
+        let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 9);
         if (rows.length < 2) return; // Nothing to sort
 
         // Determine direction
@@ -177,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let xContent = x.textContent.trim();
                 let yContent = y.textContent.trim();
                 let compareResult = 0;
-                if (n === 4 || n === 5) { // Date columns
+                if (n === 6 || n === 7) { // Date columns (adjusted for new column positions)
                     let xDate = Date.parse(xContent);
                     let yDate = Date.parse(yContent);
                     if (!isNaN(xDate) && !isNaN(yDate)) {
@@ -210,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             if (shouldSwitch !== false) {
                 tbody.insertBefore(rows[shouldSwitch + 1], rows[shouldSwitch]);
-                rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 7);
+                rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelectorAll('td').length === 9);
                 switching = true;
             }
         }

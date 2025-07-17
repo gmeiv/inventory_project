@@ -17,6 +17,13 @@ class UserBorrowController extends Controller
 
     public function requestBorrow(Request $request, $serial_number)
     {
+        $item = Item::where('serial_number', $serial_number)->firstOrFail();
+
+        $request->validate([
+            'quantity' => 'required|integer|min:1|max:' . $item->stocks,
+            'borrow_until' => 'required|date|after:today',
+        ]);
+
         $existing = BorrowRequest::where('serial_number', $serial_number)
             ->where('user_id', Auth::id())
             ->where('status', 'pending')
@@ -30,6 +37,8 @@ class UserBorrowController extends Controller
             'serial_number' => $serial_number,
             'user_id' => Auth::id(),
             'status' => 'pending',
+            'quantity' => $request->quantity,
+            'borrow_until' => $request->borrow_until,
         ]);
 
         return back()->with('success', 'Borrow request sent for item: ' . $serial_number);
@@ -43,10 +52,15 @@ class UserBorrowController extends Controller
 
     public function returnItem($id)
     {
-        $borrow = BorrowRequest::where('id', $id)->where('user_id', Auth::id())->where('status', 'approved')->firstOrFail();
-        $item = Item::findOrFail($borrow->serial_number);
-        $item->stocks += 1;
-        $item->save();
+        $borrow = BorrowRequest::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status', 'approved')
+            ->first();
+
+        if (!$borrow) {
+            return redirect()->back()->with('error', 'This borrow request cannot be returned.');
+        }
+
         $borrow->status = 'returned';
         $borrow->save();
         return redirect()->back()->with('success', 'Item returned successfully.');

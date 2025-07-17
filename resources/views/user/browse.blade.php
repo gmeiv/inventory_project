@@ -66,7 +66,7 @@
                     <td>{{ $item->total_stocks }}</td>
                     <td>
                         @if($item->stocks > 0)
-                            <button type="button" class="action-btn-borrow" onclick="showConfirmPopup('borrow', '{{ $item->serial_number }}', '{{ $item->name }}')">
+                            <button type="button" class="action-btn-borrow" onclick="showBorrowFormPopup('{{ $item->serial_number }}', '{{ $item->name }}', {{ $item->stocks }})">
                                 <i class="fas fa-hand-paper"></i> Borrow
                             </button>
                         @else
@@ -91,6 +91,29 @@
     </div>
 </div>
 
+<!-- Borrow Form Modal -->
+<div class="confirm-popup-overlay" id="borrowFormPopup">
+    <div class="confirm-popup">
+        <h3 id="borrowFormTitle">Borrow Item</h3>
+        <form id="borrowForm" method="POST">
+            @csrf
+            <input type="hidden" name="serial_number" id="borrow_serial_number">
+            <div style="margin-bottom: 10px;">
+                <label for="borrow_quantity">Quantity:</label>
+                <input type="number" name="quantity" id="borrow_quantity" min="1" required>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="borrow_until">Borrow Until:</label>
+                <input type="date" name="borrow_until" id="borrow_until" required>
+            </div>
+            <div class="confirm-popup-buttons">
+                <button type="submit" class="confirm-popup-btn confirm">Confirm</button>
+                <button type="button" class="confirm-popup-btn cancel" onclick="hideBorrowFormPopup()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Hidden Form -->
 <form id="actionForm" method="POST" style="display: none;">
     @csrf
@@ -102,6 +125,7 @@
 <script>
     let currentSortCol = 1;
     let currentSortDir = 'asc';
+    let currentItemStocks = 0;
 
     function toggleFilterDropdown() {
         const dropdown = document.getElementById('filterOptions');
@@ -183,6 +207,20 @@
             hideConfirmPopup();
         }
     });
+
+    function showBorrowFormPopup(serialNumber, itemName, stocks) {
+        document.getElementById('borrowFormTitle').textContent = `Borrow ${itemName} (${serialNumber})`;
+        document.getElementById('borrowForm').action = `{{ url('/borrow-request') }}/${serialNumber}`;
+        document.getElementById('borrow_serial_number').value = serialNumber;
+        document.getElementById('borrow_quantity').max = stocks;
+        document.getElementById('borrow_quantity').value = 1;
+        document.getElementById('borrow_until').value = '';
+        currentItemStocks = stocks;
+        document.getElementById('borrowFormPopup').style.display = 'flex';
+    }
+    function hideBorrowFormPopup() {
+        document.getElementById('borrowFormPopup').style.display = 'none';
+    }
 
     function showNotification(message, type = 'success') {
         const container = document.getElementById('notificationContainer');

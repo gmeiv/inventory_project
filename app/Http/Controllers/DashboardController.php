@@ -31,11 +31,11 @@ class DashboardController extends Controller
     $request = BorrowRequest::with('user', 'item')->findOrFail($id);
 
     $item = Item::findOrFail($request->serial_number);
-    if ($item->stocks < 1) {
+    if ($item->stocks < $request->quantity) {
         return redirect()->back()->with('error', 'Not enough stock to fulfill this request.');
     }
 
-    $item->stocks -= 1;
+    $item->stocks -= $request->quantity;
     $item->save();
 
     $request->status = 'approved';
@@ -82,36 +82,44 @@ class DashboardController extends Controller
 
 
     public function confirmReturn($id)
-{
-    $request = BorrowRequest::with(['user', 'item'])->findOrFail($id);
+    {
+        $request = BorrowRequest::with(['user', 'item'])->findOrFail($id);
 
-    $request->status = 'confirmed_returned';
-    $request->approved_by_admin_id = Auth::guard('admin')->id();
-    $request->save();
+        // Only process if status is 'returned'
+        if ($request->status === 'returned') {
+            $item = Item::findOrFail($request->serial_number);
+            $item->stocks += $request->quantity;
+            $item->save();
 
-    // ✅ Send email to the user who returned the item
-    if ($request->user && $request->item) {
-        Mail::send([], [], function ($message) use ($request) {
-            $message->to($request->user->email)
-                ->subject('Your Item Return Has Been Confirmed')
-                ->html("
-                    <p>Hello <strong>{$request->user->firstname}</strong>,</p>
+            $request->status = 'confirmed_returned';
+            $request->approved_by_admin_id = Auth::guard('admin')->id();
+            $request->save();
 
-                    <p>We have successfully confirmed the return of the item <strong>\"{$request->item->name}\"</strong>.</p>
+            // ✅ Send email to the user who returned the item
+            if ($request->user && $request->item) {
+                Mail::send([], [], function ($message) use ($request) {
+                    $message->to($request->user->email)
+                        ->subject('Your Item Return Has Been Confirmed')
+                        ->html("
+                            <p>Hello <strong>{$request->user->firstname}</strong>,</p>
 
-                    <p><strong>Serial Number:</strong> {$request->serial_number}</p>
-                    <p><strong>Quantity Returned:</strong> {$request->quantity}</p>
-                    <p><strong>Status:</strong> Confirmed Returned</p>
+                            <p>We have successfully confirmed the return of the item <strong>\"{$request->item->name}\"</strong>.</p>
 
-                    <p>Thank you for responsibly returning the item.</p>
+                            <p><strong>Serial Number:</strong> {$request->serial_number}</p>
+                            <p><strong>Quantity Returned:</strong> {$request->quantity}</p>
+                            <p><strong>Status:</strong> Confirmed Returned</p>
 
-                    <p><strong>ARICC Admin Team</strong></p>
-                ");
-        });
+                            <p>Thank you for responsibly returning the item.</p>
+
+                            <p><strong>ARICC Admin Team</strong></p>
+                        ");
+                });
+            }
+            return redirect()->back()->with('success', 'Return confirmed and user notified.');
+        } else {
+            return redirect()->back()->with('error', 'This return request cannot be confirmed.');
+        }
     }
-
-    return redirect()->back()->with('success', 'Return confirmed and user notified.');
-}
 
 
 

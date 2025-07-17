@@ -14,6 +14,7 @@ class BorrowRequest extends Model
         'user_id',
         'status',
         'quantity',
+        'borrow_until',
     ];
 
     public function user()
