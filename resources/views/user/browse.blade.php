@@ -9,6 +9,132 @@
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .action-btn {
+            background-color: #4da6ff;
+            border: none;
+            padding: 6px 10px;
+            margin: 2px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        .action-btn.preview { 
+            background-color: #17a2b8; 
+        }
+        /* Preview Modal Styles */
+        .preview-modal-content {
+            max-width: 800px;
+            width: 70vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: auto;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+        .carousel-slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+            margin: auto;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+        .carousel-btn.prev {
+            left: 10px;
+        }
+        .carousel-btn.next {
+            right: 10px;
+        }
+        .carousel-dots {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 4px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: #4da6ff;
+        }
+        .preview-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .preview-info h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        .preview-info p {
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .no-images {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
 
@@ -65,6 +191,22 @@
                     <td>{{ $item->stocks }}</td>
                     <td>{{ $item->total_stocks }}</td>
                     <td>
+                        @php 
+                            $images = [];
+                            for ($i = 1; $i <= 5; $i++) {
+                                $imageField = "image$i";
+                                if (!empty($item->$imageField)) {
+                                    $images[] = $item->$imageField;
+                                }
+                            }
+                        @endphp
+                        <button class="action-btn preview" type="button"
+                            data-name="{{ $item->name }}"
+                            data-description="{{ $item->description }}"
+                            data-images='@json($images)'
+                            onclick="openPreviewModalFromButton(this)">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
                         @if($item->stocks > 0)
                             <button type="button" class="action-btn-borrow" onclick="showBorrowFormPopup('{{ $item->serial_number }}', '{{ $item->name }}', {{ $item->stocks }})">
                                 <i class="fas fa-hand-paper"></i> Borrow
@@ -114,6 +256,24 @@
     </div>
 </div>
 
+<!-- Preview Modal -->
+<div id="previewModal" class="modal" style="display:none;">
+    <div class="modal-content preview-modal-content">
+        <span class="close" onclick="closePreviewModal()">&times;</span>
+        <h2 id="previewModalTitle"> </h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+            <div class="carousel-slides" id="carouselSlides"></div>
+            <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="preview-info">
+            <h3 id="previewItemName"></h3>
+            <p id="previewItemDescription"></p>
+        </div>
+    </div>
+</div>
+
 <!-- Hidden Form -->
 <form id="actionForm" method="POST" style="display: none;">
     @csrf
@@ -123,6 +283,90 @@
 <div class="notification-container" id="notificationContainer"></div>
 
 <script>
+    // Preview Modal Carousel Logic
+    let previewImages = [];
+    let currentSlide = 0;
+
+    function openPreviewModal(name, description, images) {
+        previewImages = images && images.length ? images : [];
+        currentSlide = 0;
+        document.getElementById('previewItemName').textContent = name;
+        document.getElementById('previewItemDescription').textContent = description;
+        renderCarousel();
+        document.getElementById('previewModal').style.display = 'block';
+    }
+
+    function closePreviewModal() {
+        document.getElementById('previewModal').style.display = 'none';
+    }
+
+    function renderCarousel() {
+        const slidesContainer = document.getElementById('carouselSlides');
+        const dotsContainer = document.getElementById('carouselDots');
+        slidesContainer.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        
+        if (!previewImages.length) {
+            slidesContainer.innerHTML = '<div class="no-images">No images available</div>';
+            return;
+        }
+        
+        previewImages.forEach((img, idx) => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide' + (idx === currentSlide ? ' active' : '');
+            const image = document.createElement('img');
+            const imageUrl = img.startsWith('http') ? img : '{{ asset("storage") }}/' + img;
+            console.log('Constructed image URL:', imageUrl);
+            image.src = imageUrl;
+            image.alt = 'Item Image ' + (idx + 1);
+            image.onload = function() {
+                console.log('Image loaded successfully:', imageUrl);
+            };
+            image.onerror = function() {
+                console.log('Failed to load image:', imageUrl);
+                this.style.display = 'none';
+            };
+            slide.appendChild(image);
+            slidesContainer.appendChild(slide);
+            
+            // Dots
+            const dot = document.createElement('span');
+            dot.className = 'dot' + (idx === currentSlide ? ' active' : '');
+            dot.onclick = () => goToSlide(idx);
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    function changeSlide(delta) {
+        if (!previewImages.length) return;
+        currentSlide = (currentSlide + delta + previewImages.length) % previewImages.length;
+        renderCarousel();
+    }
+
+    function goToSlide(idx) {
+        currentSlide = idx;
+        renderCarousel();
+    }
+
+    function openPreviewModalFromButton(btn) {
+        const images = JSON.parse(btn.getAttribute('data-images') || '[]');
+        console.log('Images array:', images);
+        console.log('Image paths:', images);
+        openPreviewModal(
+            btn.getAttribute('data-name'),
+            btn.getAttribute('data-description'),
+            images
+        );
+    }
+
+    // Close preview modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const previewModal = document.getElementById('previewModal');
+        if (event.target === previewModal) {
+            closePreviewModal();
+        }
+    });
+
     let currentSortCol = 1;
     let currentSortDir = 'asc';
     let currentItemStocks = 0;

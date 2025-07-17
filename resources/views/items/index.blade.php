@@ -52,14 +52,13 @@
         .preview-modal-content {
             max-width: 800px;
             width: 70vw;
-            overflow: visible;
+            max-height: 90vh;
+            overflow-y: auto;
             margin: auto;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* max-height: 90vh; */
-            /* overflow-y: auto; */
         }
         .carousel-container {
             position: relative;
@@ -160,9 +159,6 @@
             height: 100%;
             color: #999;
             font-size: 18px;
-        }
-        .modal {
-            overflow: visible !important;
         }
     </style>
 </head>
