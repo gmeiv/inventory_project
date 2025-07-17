@@ -260,6 +260,12 @@
     @if (session('error'))
         showNotification("{{ session('error') }}", 'error');
     @endif
+    @if (
+$errors->any())
+        @foreach ($errors->all() as $error)
+            showNotification("{{ $error }}", 'error');
+        @endforeach
+    @endif
 </script>
 
 </body>
