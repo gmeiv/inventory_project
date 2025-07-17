@@ -92,7 +92,7 @@ class DashboardController extends Controller
             $item->save();
 
             $request->status = 'confirmed_returned';
-            $request->approved_by_admin_id = Auth::guard('admin')->id();
+            $request->return_approved_by_admin_id = Auth::guard('admin')->id();
             $request->save();
 
             // ✅ Send email to the user who returned the item

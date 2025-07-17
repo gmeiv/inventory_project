@@ -102,8 +102,12 @@
                         <td>{{ $request->updated_at->format('M d, Y g:i A') }}</td>
                         <td class="approved-by-col">
                             @if($request->approvedByAdmin)
-                                {{ $request->approvedByAdmin->firstname }} {{ $request->approvedByAdmin->surname }}
-                            @else
+                                <div>Borrow: {{ $request->approvedByAdmin->firstname }} {{ $request->approvedByAdmin->surname }}</div>
+                            @endif
+                            @if($request->returnApprovedByAdmin)
+                                <div>Return: {{ $request->returnApprovedByAdmin->firstname }} {{ $request->returnApprovedByAdmin->surname }}</div>
+                            @endif
+                            @if(!$request->approvedByAdmin && !$request->returnApprovedByAdmin)
                                 <span style="color: #999;">-</span>
                             @endif
                         </td>
