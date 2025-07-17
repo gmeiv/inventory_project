@@ -15,13 +15,18 @@ html, body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: url('../images/.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 .header {
     background: linear-gradient(to right, #003366, #0059b3);
     padding: 30px 20px;
     text-align: center;
-    font-size: 1.9rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: white;
     border-radius: 0 0 10px 10px;
