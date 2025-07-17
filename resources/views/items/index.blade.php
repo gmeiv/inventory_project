@@ -87,7 +87,8 @@
                 <th>Image</th>
                 <th>Serial Number</th>
                 <th>Name</th>
-                <th>Stocks</th>
+                <th>Current Stocks</th>
+                <th>Total Stocks</th>
                 <th>Category</th>
                 <th>Location</th>
                 <th>Actions</th>
@@ -106,6 +107,7 @@
                     <td>{{ $item->serial_number }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->stocks }}</td>
+                    <td>{{ $item->total_stocks }}</td>
                     <td>{{ $item->category }}</td>
                     <td>{{ $item->location }}</td>
                     <td>
@@ -113,6 +115,7 @@
                             '{{ $item->serial_number }}',
                             '{{ addslashes($item->name) }}',
                             {{ $item->stocks }},
+                            {{ $item->total_stocks }},
                             '{{ addslashes($item->location) }}',
                             '{{ addslashes($item->category) }}',
                             '{{ route('items.update', $item->serial_number) }}')">
@@ -157,8 +160,11 @@
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" required>
 
-                <label for="stocks">Stocks</label>
-                <input type="number" name="stocks" id="stocks" required min="0">
+                <label for="total_stocks">Total Stocks</label>
+                <input type="number" name="total_stocks" id="total_stocks" required min="0">
+
+                <label for="stocks">Current Stocks</label>
+                <input type="number" id="stocks" value="" disabled>
 
                 <label for="category">Category</label>
                 <input type="text" name="category" id="category" required>
@@ -254,13 +260,14 @@
 
         document.getElementById('name').value = '';
         document.getElementById('stocks').value = '';
+        document.getElementById('total_stocks').value = '';
         document.getElementById('category').value = '';
         document.getElementById('location').value = '';
 
         document.getElementById('itemModal').style.display = 'block';
     }
 
-    function openEditModal(serialNumber, name, stocks, location, category, actionUrl) {
+    function openEditModal(serialNumber, name, stocks, totalStocks, location, category, actionUrl) {
         const form = document.getElementById('itemForm');
         document.getElementById('modalTitle').innerText = 'Edit Item';
         form.action = actionUrl;
@@ -282,6 +289,7 @@
         document.getElementById('serial_number').disabled = true;
         document.getElementById('name').value = name;
         document.getElementById('stocks').value = stocks;
+        document.getElementById('total_stocks').value = totalStocks;
         document.getElementById('category').value = category;
         document.getElementById('location').value = location;
 
@@ -305,6 +313,7 @@
                 "{{ old('serial_number') }}",
                 "{{ old('name') }}",
                 "{{ old('stocks') }}",
+                "{{ old('total_stocks') }}",
                 "{{ old('location') }}",
                 "{{ old('category') }}",
                 "{{ url('items') }}/{{ old('serial_number') }}"
@@ -321,6 +330,7 @@
 
         document.getElementById('name').value = "{{ old('name') }}";
         document.getElementById('stocks').value = "{{ old('stocks') }}";
+        document.getElementById('total_stocks').value = "{{ old('total_stocks') }}";
         document.getElementById('location').value = "{{ old('location') }}";
         document.getElementById('category').value = "{{ old('category') }}";
     });

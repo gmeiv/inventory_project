@@ -44,7 +44,8 @@
                 <th>Serial Number</th>
                 <th>Name</th>
                 <th>Category</th>
-                <th>Stocks</th>
+                <th>Current Stocks</th>
+                <th>Total Stocks</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -62,6 +63,7 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->category }}</td>
                     <td>{{ $item->stocks }}</td>
+                    <td>{{ $item->total_stocks }}</td>
                     <td>
                         @if($item->stocks > 0)
                             <button type="button" class="action-btn-borrow" onclick="showConfirmPopup('borrow', '{{ $item->serial_number }}', '{{ $item->name }}')">

@@ -18,6 +18,7 @@ class Item extends Model
         'serial_image',
         'name',
         'stocks',
+        'total_stocks',
         'location',
         'category' 
     ];
