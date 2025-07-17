@@ -313,3 +313,24 @@ input[disabled] {
     border: none;
     width: 250px;
 }
+
+.custom-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(to right, #00264d, #004080); /* dark blue gradient */
+    color: black; /* selected option shows in black */
+    appearance: none; /* remove native arrow for custom styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%227%22%20viewBox%3D%220%200%2010%207%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M5%207L0%200h10L5%207z%22/%3E%3C/svg%3E"); 
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 7px;
+}
+
+.custom-select option {
+    background-color: #004080;
+    color: white;
+}

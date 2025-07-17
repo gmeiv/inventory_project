@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -27,7 +28,13 @@ class ItemController extends Controller
                 'name' => 'required',
                 'total_stocks' => 'required|integer|min:0',
                 'location' => 'required',
-                'category' => 'required|string|max:255'
+                'category' => 'required|string|max:255',
+                'description' => 'nullable|string', // 🔧
+                'image1' => 'nullable|image|max:2048',
+                'image2' => 'nullable|image|max:2048',
+                'image3' => 'nullable|image|max:2048',
+                'image4' => 'nullable|image|max:2048',
+                'image5' => 'nullable|image|max:2048',
             ]);
         } else {
             $request->validate([
@@ -35,15 +42,35 @@ class ItemController extends Controller
                 'name' => 'required',
                 'total_stocks' => 'required|integer|min:0',
                 'location' => 'required',
-                'category' => 'required|string|max:255'
+                'category' => 'required|string|max:255',
+                'description' => 'nullable|string', // 🔧
+                'image1' => 'nullable|image|max:2048',
+                'image2' => 'nullable|image|max:2048',
+                'image3' => 'nullable|image|max:2048',
+                'image4' => 'nullable|image|max:2048',
+                'image5' => 'nullable|image|max:2048',
             ]);
         }
 
-        $data = $request->only(['serial_number', 'name', 'total_stocks', 'location', 'category']);
-        $data['stocks'] = $request->total_stocks; // Set current stocks to total stocks on create
+        $data = $request->only(['serial_number', 'name', 'total_stocks', 'location', 'category', 'description']);
+$data['stocks'] = $request->total_stocks;
+
+for ($i = 1; $i <= 5; $i++) {
+    if ($request->hasFile("image$i")) {
+        $data["image$i"] = $request->file("image$i")->store('item_images', 'public');
+    }
+}
+
 
         if ($request->hasFile('serial_image')) {
             $data['serial_image'] = $request->file('serial_image')->store('serial_images', 'public');
+        }
+
+        // 🔧 Handle optional images
+        for ($i = 1; $i <= 5; $i++) {
+            if ($request->hasFile("image$i")) {
+                $data["image$i"] = $request->file("image$i")->store("item_images", "public");
+            }
         }
 
         Item::create($data);
@@ -64,7 +91,13 @@ class ItemController extends Controller
                 'name' => 'required',
                 'total_stocks' => 'required|integer|min:0',
                 'location' => 'required',
-                'category' => 'required|string|max:255'
+                'category' => 'required|string|max:255',
+                'description' => 'nullable|string', // 🔧
+                'image1' => 'nullable|image|max:2048',
+                'image2' => 'nullable|image|max:2048',
+                'image3' => 'nullable|image|max:2048',
+                'image4' => 'nullable|image|max:2048',
+                'image5' => 'nullable|image|max:2048',
             ]);
         } else {
             $request->validate([
@@ -72,7 +105,13 @@ class ItemController extends Controller
                 'name' => 'required',
                 'total_stocks' => 'required|integer|min:0',
                 'location' => 'required',
-                'category' => 'required|string|max:255'
+                'category' => 'required|string|max:255',
+                'description' => 'nullable|string', // 🔧
+                'image1' => 'nullable|image|max:2048',
+                'image2' => 'nullable|image|max:2048',
+                'image3' => 'nullable|image|max:2048',
+                'image4' => 'nullable|image|max:2048',
+                'image5' => 'nullable|image|max:2048',
             ]);
         }
 
@@ -83,9 +122,17 @@ class ItemController extends Controller
         $item->total_stocks = $request->total_stocks;
         $item->location = $request->location;
         $item->category = $request->category;
+        $item->description = $request->description; // 🔧
 
         if ($request->hasFile('serial_image')) {
             $item->serial_image = $request->file('serial_image')->store('serial_images', 'public');
+        }
+
+        // 🔧 Update optional images
+        for ($i = 1; $i <= 5; $i++) {
+            if ($request->hasFile("image$i")) {
+                $item["image$i"] = $request->file("image$i")->store("item_images", "public");
+            }
         }
 
         $item->save();

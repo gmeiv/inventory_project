@@ -111,24 +111,33 @@
                     <td>{{ $item->category }}</td>
                     <td>{{ $item->location }}</td>
                     <td>
-                        <button class="action-btn edit" type="button" onclick="openEditModal(
-                            '{{ $item->serial_number }}',
-                            '{{ addslashes($item->name) }}',
-                            {{ $item->stocks }},
-                            {{ $item->total_stocks }},
-                            '{{ addslashes($item->location) }}',
-                            '{{ addslashes($item->category) }}',
-                            '{{ route('items.update', $item->serial_number) }}')">
-                            <i class="fas fa-pen"></i> Edit
-                        </button>
-                        <form action="{{ route('items.destroy', $item->serial_number) }}" method="POST" class="inline-form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="action-btn delete" onclick="return confirm('Are you sure?')">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </form>
-                    </td>
+    <button class="action-btn preview" type="button" onclick="openPreviewModal(
+        '{{ addslashes($item->name) }}',
+        '{{ addslashes($item->description) }}',
+        @json($item->images),  // assuming $item->images is an array of image paths
+    )">
+        <i class="fas fa-eye"></i> Preview
+    </button>
+    
+    <button class="action-btn edit" type="button" onclick="openEditModal(
+        '{{ $item->serial_number }}',
+        '{{ addslashes($item->name) }}',
+        {{ $item->stocks }},
+        {{ $item->total_stocks }},
+        '{{ addslashes($item->location) }}',
+        '{{ addslashes($item->category) }}',
+        '{{ route('items.update', $item->serial_number) }}')">
+        <i class="fas fa-pen"></i> Edit
+    </button>
+
+    <form action="{{ route('items.destroy', $item->serial_number) }}" method="POST" class="inline-form">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="action-btn delete" onclick="return confirm('Are you sure?')">
+            <i class="fas fa-trash"></i> Delete
+        </button>
+    </form>
+</td>
                 </tr>
             @endforeach
             </tbody>
@@ -142,40 +151,85 @@
     </div>
 
     <!-- Modal -->
-    <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Add Item</h2>
-            <form id="itemForm" method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="serial_number" id="serialNumber">
-                <input type="hidden" name="serial_number_original" id="serial_number_original">
+    <!-- Modal -->
+<div id="itemModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">Add Item</h2>
+        <form id="itemForm" method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="serial_number" id="serialNumber">
+            <input type="hidden" name="serial_number_original" id="serial_number_original">
 
-                <label for="serial_image">Serial Image</label>
-                <input type="file" name="serial_image" id="serial_image" accept="image/*">
+            <label for="serial_image">Serial Image</label>
+            <input type="file" name="serial_image" id="serial_image" accept="image/*">
 
-                <label for="serial_number">Serial Number</label>
-                <input type="text" name="serial_number" id="serial_number" required disabled>
+            <label for="serial_number">Serial Number</label>
+            <input type="text" name="serial_number" id="serial_number" required disabled>
 
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" required>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required>
 
-                <label for="total_stocks">Total Stocks</label>
-                <input type="number" name="total_stocks" id="total_stocks" required min="0">
+            <label for="total_stocks">Total Stocks</label>
+            <input type="number" name="total_stocks" id="total_stocks" required min="0">
 
-                <label for="stocks">Current Stocks</label>
-                <input type="number" id="stocks" value="" disabled>
+            <label for="stocks">Current Stocks</label>
+            <input type="number" id="stocks" value="" disabled>
 
-                <label for="category">Category</label>
-                <input type="text" name="category" id="category" required>
+            <label for="category">Category</label>
+            <input type="text" name="category" id="category" required>
 
-                <label for="location">Location</label>
-                <input type="text" name="location" id="location" required>
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" required>
 
-                <button type="submit" class="modal-btn">Save Item</button>
-            </form>
-        </div>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="3" placeholder="Enter item description..."
+    style="width: 100%; padding: 8px; border-radius: 5px; border: none; background-color: #004080; color: white;"></textarea>
+
+
+<label for="image_count">How many images do you want to upload? (max 5)</label>
+<select id="image_count" onchange="showImageFields(this.value)" 
+    style="width: 100%; padding: 8px; border-radius: 5px; border: none; background: linear-gradient(to right,rgb(220, 229, 237),rgb(132, 186, 239)); color: black;">
+
+    <option value="">Select...</option>
+    @for ($i = 1; $i <= 5; $i++)
+        <option value="{{ $i }}">{{ $i }}</option>
+    @endfor
+</select>
+
+
+            <div id="imageUploads"></div>
+            <br><br>
+            <button type="submit" class="modal-btn">Save Item</button>
+        </form>
     </div>
+</div>
+
+<script>
+    function showImageFields(count) {
+        const imageUploads = document.getElementById('imageUploads');
+        imageUploads.innerHTML = ''; // Clear existing fields
+
+        count = parseInt(count);
+        if (!isNaN(count) && count >= 1 && count <= 5) {
+            for (let i = 1; i <= count; i++) {
+                const label = document.createElement('label');
+                label.setAttribute('for', `image${i}`);
+                label.innerText = `Image ${i}`;
+
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.name = `image${i}`;
+                input.id = `image${i}`;
+                input.accept = 'image/*';
+
+                imageUploads.appendChild(label);
+                imageUploads.appendChild(input);
+            }
+        }
+    }
+</script>
+
 
     <div id="errorPopup">
         <p><strong>The serial number is already taken.</strong></p>
@@ -335,6 +389,7 @@
         document.getElementById('category').value = "{{ old('category') }}";
     });
 </script>
+
 @endif
 </body>
 </html>
