@@ -3,32 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>My Borrowings</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/request-history.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirm-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <div class="accept-requests-container">
-        <form action="{{ route('user.dashboard') }}" method="GET" style="display:inline; margin-bottom: 1.2rem;">
-            <button type="submit" class="accept-requests-action-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</button>
-        </form>
-        <h1 class="accept-requests-title">My Borrowings</h1>
-        <table class="accept-requests-table">
+<a href="{{ url('user.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
+<div class="items-wrapper">
+    <h1 class="title">My Borrowings</h1>
+    @php
+        $sortedBorrowings = $myBorrowings->sortByDesc('created_at');
+    @endphp
+    <table class="history-table" style="text-align:center;">
             <thead>
                 <tr>
-                    <th>Item Serial Number</th>
-                    <th>Quantity</th>
-                    <th>Borrow Until</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                <th style="text-align:center;">Item Serial Number</th>
+                <th style="text-align:center;">Item Name</th>
+                <th style="text-align:center;">Quantity</th>
+                <th style="text-align:center;">Borrow Until</th>
+                <th style="text-align:center;">Status</th>
+                <th style="text-align:center;">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($myBorrowings as $borrow)
-                    <tr>
+                @forelse ($sortedBorrowings as $borrow)
+                <tr style="text-align:center;">
                         <td>{{ $borrow->serial_number }}</td>
+                        <td>{{ $borrow->item->name ?? '-' }}</td>
                         <td>{{ $borrow->quantity ?? '-' }}</td>
                         <td>{{ $borrow->borrow_until ? \Carbon\Carbon::parse($borrow->borrow_until)->format('M d, Y') : '-' }}</td>
                         <td>
@@ -44,21 +48,20 @@
                         </td>
                         <td>
                             @if($borrow->status === 'approved')
-                            <button type="button" class="accept-requests-action-btn" onclick="showConfirmPopup('return', {{ $borrow->id }}, '{{ $borrow->serial_number }}')"><i class="fas fa-undo-alt"></i> Return Item</button>
+                        <button type="button" class="action-btn" onclick="showConfirmPopup('return', '{{ $borrow->id }}', '{{ $borrow->serial_number }}')"><i class="fas fa-undo-alt"></i> Return Item</button>
                             @else
                                 <span style="color: #aaa;">Returned</span>
                             @endif
                         </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="5" class="accept-requests-empty">You have not borrowed any items.</td>
+                <tr style="text-align:center;">
+                        <td colspan="6" class="accept-requests-empty">You have not borrowed any items.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
 
     <div class="confirm-popup-overlay" id="confirmPopup">
         <div class="confirm-popup">
@@ -71,11 +74,9 @@
         </div>
     </div>
 
-
     <form id="actionForm" method="POST" style="display: none;">
         @csrf
     </form>
-
 
     <div class="notification-container" id="notificationContainer"></div>
 
@@ -103,27 +104,22 @@
     }
 
         function hideConfirmPopup() {
-            const popup = document.getElementById('confirmPopup');
-            popup.style.display = 'none';
+        document.getElementById('confirmPopup').style.display = 'none';
         }
-
         
         document.getElementById('confirmPopup').addEventListener('click', function(e) {
             if (e.target === this) {
                 hideConfirmPopup();
             }
         });
-
         
         function showNotification(message, type = 'success') {
             const container = document.getElementById('notificationContainer');
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
-            
             const icon = type === 'success' ? 'fas fa-check-circle' : 
                         type === 'error' ? 'fas fa-exclamation-circle' : 
                         'fas fa-info-circle';
-            
             notification.innerHTML = `
                 <div class="notification-content">
                     <i class="${icon} notification-icon"></i>
@@ -131,10 +127,7 @@
                 </div>
                 <button class="notification-close" onclick="removeNotification(this)">&times;</button>
             `;
-            
             container.appendChild(notification);
-            
-            
             setTimeout(() => {
                 removeNotification(notification.querySelector('.notification-close'));
             }, 5000);
@@ -147,12 +140,10 @@
                 notification.remove();
             }, 300);
         }
-
         
         @if (session('success'))
             showNotification("{{ session('success') }}", 'success');
         @endif
-
         @if (session('error'))
             showNotification("{{ session('error') }}", 'error');
         @endif

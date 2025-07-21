@@ -1,76 +1,159 @@
-
-
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(#004080);
+    background-image: url('../images/real.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    position: relative;
     color: white;
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 44, 77, 0.7);
+    z-index: 0;
+    pointer-events: none;
 }
 
 .container {
-    max-width: 1000px;
-    margin: auto;
+    max-width: 90%;
+    margin: 100px auto 60px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #0a2c4d 0%, #003366 100%);
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 1;
 }
 
 h2 {
-    color: #ffffff;
+    color: #66ccff;
     font-weight: bold;
     margin-bottom: 2rem;
-    font-size: 2.75rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    font-size: 2.5rem;
+    text-align: center;
+    text-shadow: 0 2px 8px #001933, 0 1px 0 #fff2;
+    letter-spacing: 1.5px;
 }
-
 
 .top-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 1rem;
+    gap: 1rem;
 }
 
-.btn-darkblue {
-    background-color: #30588e;
-    color: white;
+.btn.btn-darkblue {
+    background: linear-gradient(135deg, #0a2c4d 0%, #003366 100%);
+    color: #fff;
     border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background 0.3s cubic-bezier(.4,2,.6,1),
+        transform 0.2s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.2s,
+        border 0.2s;
+    padding: 10px 24px;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.1rem;
+}
+.btn.btn-darkblue:hover {
+    background: linear-gradient(135deg, #003366 0%, #0059b3 100%);
+    transform: scale(1.07);
+    box-shadow: 0 0 24px 6px #0059b3cc, 0 8px 24px rgba(0,0,0,0.4);
+    border: 2.5px solid #00bfff;
+}
+.btn.btn-darkblue:active {
+    background: linear-gradient(135deg, #0059b3 0%, #003366 100%);
+    box-shadow: 0 0 12px 2px #0059b3cc, 0 4px 12px rgba(0,0,0,0.3);
+    border: 2.5px solid #fff;
 }
 
-.btn-darkblue:hover {
-    background-color: #3399ff;
-}
-
-.add-btn:hover {
-    background-color: #3399ff;
-}
-
-.add-btn-borrow:hover {
-    background-color: #3399ff;
-}
 .announcement-box {
-    background-color: #003366;
+    background: #003366;
     color: #eff3f6;
     font-weight: bold;
-    padding: 15px 20px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); 
+    padding: 18px 24px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
-
 .announcement-box:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+    /* Remove hover effect */
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
 
 .modal-content {
-    background-color: #112b53;
+    background-color: #0a2c4d;
     color: white;
-    border: none;
+    margin: 10% auto;
+    padding: 30px;
     border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 20px #0066cc;
+    position: relative;
 }
 
-.modal-header,
-.modal-footer {
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
     border: none;
+    border-radius: 6px;
+    background: #004080;
+    color: white;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-btn:hover {
+    background-color: #3399ff;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
 }
 
 .btn-close-white {
@@ -83,15 +166,22 @@ h2 {
     position: fixed;
     top: 20px;
     left: 20px;
-    background-color: #0056b3;
-    color: white;
+    background: linear-gradient(135deg, #0a2c4d 0%, #003366 100%);
+    color: #fff;
     padding: 10px 15px;
-    border-radius: 6px;
+    border-radius: 12px;
     font-weight: bold;
     text-decoration: none;
-    transition: background 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: background 0.3s cubic-bezier(.4,2,.6,1),
+        transform 0.2s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.2s,
+        border 0.2s;
     z-index: 1000;
 }
 .back-button:hover {
-    background-color: #3399ff;
+    background: linear-gradient(135deg, #003366 0%, #0059b3 100%);
+    transform: scale(1.07);
+    box-shadow: 0 0 24px 6px #0059b3cc, 0 8px 24px rgba(0,0,0,0.4);
+    border: 2.5px solid #00bfff;
 }

@@ -166,26 +166,23 @@
 <a href="{{ url('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
 <div class="items-wrapper">
-    <div class="header-row">
-        <h1 class="title">Items Inventory</h1>
-        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 20px;">
+    <h1 class="title" style="text-align:center;">Items Inventory</h1>
+    <div class="header-row" style="justify-content:flex-start; align-items:center; gap:0.5rem; margin-bottom:20px;">
             <input type="text" id="searchInput" placeholder="Search by Serial Number, Name, or Category..." onkeyup="filterTable()" style="padding: 8px; border-radius: 5px; border: none; width: 280px;">
             <div class="filter-dropdown">
-                <button onclick="toggleFilterDropdown()" class="filter-btn">
+            <button onclick="toggleFilterDropdown()" class="filter-btn" type="button">
                     <i class="fas fa-filter"></i> Filter
                 </button>
                 <div id="filterOptions" class="dropdown-content">
                     <a href="#" onclick="setSortField(1)">Serial Number</a>
                     <a href="#" onclick="setSortField(2)">Name</a>
-                    <a href="#" onclick="setSortField(3)">Stocks</a>
-                    <a href="#" onclick="setSortField(4)">Category</a>
-                    <a href="#" onclick="setSortField(5)">Location</a>
-                </div>
+                <a href="#" onclick="setSortField(5)">Category</a>
+                <a href="#" onclick="setSortField(3)">Current Stocks</a>
             </div>
-            <button class="arrow-btn" onclick="toggleSortDirection()">
-                <span id="arrowIcon">Sort ↑</span>
-            </button>
         </div>
+        <button class="arrow-btn" onclick="toggleSortDirection()" type="button">
+            <span id="arrowIcon">Sort ↑</span>
+        </button>
     </div>
 
     @if (session('success'))
@@ -243,8 +240,8 @@
     <button class="action-btn edit" type="button" onclick="openEditModal(
         '{{ $item->serial_number }}',
         '{{ addslashes($item->name) }}',
-        {{ $item->stocks }},
-        {{ $item->total_stocks }},
+        '{{ $item->stocks }}',
+        '{{ $item->total_stocks }}',
         '{{ addslashes($item->location) }}',
         '{{ addslashes($item->category) }}',
         '{{ route('items.update', $item->serial_number) }}')">
@@ -385,6 +382,14 @@
         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
+    document.addEventListener('click', function(event) {
+        const filterBtn = document.querySelector('.filter-btn');
+        const dropdown = document.getElementById('filterOptions');
+        if (!filterBtn.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
     function setSortField(colIndex) {
         currentSortCol = colIndex;
         sortTable(currentSortCol, currentSortDir);
@@ -423,15 +428,12 @@
         rows.forEach(row => {
             const serial = row.cells[1].textContent.toUpperCase();
             const name = row.cells[2].textContent.toUpperCase();
-            const category = row.cells[4].textContent.toUpperCase();
+            const category = row.cells[5].textContent.toUpperCase();
             row.style.display = (serial.includes(input) || name.includes(input) || category.includes(input)) ? '' : 'none';
         });
     }
 
     window.onclick = function(event) {
-        if (!event.target.matches('.filter-btn')) {
-            document.getElementById('filterOptions').style.display = 'none';
-        }
         const modal = document.getElementById('itemModal');
         if (event.target === modal) {
             closeModal();

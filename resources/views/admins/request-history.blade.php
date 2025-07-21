@@ -14,9 +14,8 @@
     <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
     <div class="items-wrapper">
-        <div class="header-row">
-            <h1 class="title">Transaction History</h1>
-        </div>
+        <h1 class="title" style="text-align:center;">Transaction History</h1>
+        <div class="header-row" style="justify-content:center;"></div>
 
         <!-- Filter -->
         <div class="filter-container">
@@ -58,7 +57,7 @@
             Showing {{ $requests->firstItem() ?? 0 }} to {{ $requests->lastItem() ?? 0 }} of {{ $requests->total() }} requests
         </div>
 
-        <!-- Table -->
+        <div class="table-scroll-wrapper">
         <table class="items-table history-table">
             <thead>
                 <tr>
@@ -119,6 +118,7 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
 
         <!-- Pagination -->
         @if($requests->hasPages())

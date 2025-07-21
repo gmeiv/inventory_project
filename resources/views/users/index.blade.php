@@ -12,11 +12,10 @@
     <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
     <div class="items-wrapper">
-        <div class="header-row">
-            <h1 class="title">Registered Members</h1>
+        <h1 class="title" style="text-align:center;">Registered Members</h1>
+        <div class="header-row" style="justify-content:flex-start;">
             <input type="text" id="searchInput" placeholder="Search by Name or Email..." onkeyup="filterTable()">
         </div>
-
         <table class="items-table">
             <thead>
                 <tr>

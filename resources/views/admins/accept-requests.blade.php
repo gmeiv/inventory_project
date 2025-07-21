@@ -5,7 +5,6 @@
     <title>Pending Borrow Requests</title>
     <link rel="stylesheet" href="{{ asset('css/items.css') }}">
     <link rel="stylesheet" href="{{ asset('css/error-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirm-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +15,8 @@
     <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
     <div class="items-wrapper">
-        <div class="header-row">
-            <h1 class="title">Pending Borrow Requests</h1>
-        </div>
+        <h1 class="title" style="text-align:center;">Pending Borrow Requests</h1>
+        <div class="header-row" style="justify-content:center;"></div>
 
         @if (session('success'))
             <div class="alert">{{ session('success') }}</div>

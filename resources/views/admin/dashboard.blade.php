@@ -12,7 +12,7 @@
 <body>
     <div class="dashboard-container">
         <div class="header">
-            <h1>ADVANCED ROBOTICS AND INTELLIGENT CONTROL CENTER</h1>
+            <h1>ADVANCED ROBOTICS AND INTELLIGENT<br>CONTROL CENTER</h1>
         </div>
 
         <div class="grid-wrapper">

@@ -6,7 +6,7 @@
 
 html, body {
     height: 100%;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     background: linear-gradient(to bottom, #0a2c4d, #004080);
     color: white;
 }
@@ -15,22 +15,35 @@ html, body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('../images/.png');
+    position: relative;
+    background-image: url('../images/real.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
 }
 
+.dashboard-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 44, 77, 0.7); /* dark blue overlay for readability */
+    z-index: 0;
+}
+
 .header {
-    background: linear-gradient(to right, #003366, #0059b3);
-    padding: 30px 20px;
+    background: linear-gradient(90deg, #002147 0%, #003366 100%);
+    padding: 36px 24px;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.7rem;
     font-weight: bold;
-    color: white;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: #fff;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 8px #001933, 0 1px 0 #fff2;
+    letter-spacing: 1.5px;
 }
 
 .grid-wrapper {
@@ -38,47 +51,67 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: start;
-    padding: 40px 20px;
+    padding: 48px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 36px;
+    max-width: 1100px;
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .grid-item {
-    background-color: #003366;
-    color: white;
-    padding: 30px 20px;
+    background: linear-gradient(135deg, #0a2c4d 0%, #003366 100%);
+    color: #fff;
+    padding: 36px 20px;
     text-align: center;
-    border-radius: 12px;
-    font-size: 1.1rem;
+    border-radius: 18px;
+    font-size: 1.15rem;
     font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: 0.3s ease-in-out;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: 
+        background 0.3s cubic-bezier(.4,2,.6,1),
+        transform 0.2s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.2s,
+        border 0.2s;
     cursor: pointer;
-    min-height: 120px; 
+    min-height: 130px; 
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 1;
 }
 
 .grid-item i {
     display: block;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: 2.1rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 2px 4px #00193388);
 }
 
-.grid-item:hover {
-    background-color: #0059b3;
-    transform: scale(1.05);
-   
+.grid-item:hover, .grid-item:focus {
+    background: linear-gradient(135deg, #003366 0%, #0059b3 100%);
+    transform: scale(1.07);
+    box-shadow: 0 0 24px 6px #0059b3cc, 0 8px 24px rgba(0,0,0,0.4);
+    border: 2.5px solid #00bfff;
+    outline: none;
+}
+
+.grid-item:active {
+    background: linear-gradient(135deg, #0059b3 0%, #003366 100%);
+    box-shadow: 0 0 12px 2px #0059b3cc, 0 4px 12px rgba(0,0,0,0.3);
+    border: 2.5px solid #fff;
 }
 
 button {
@@ -92,12 +125,12 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    border-radius: 18px;
+    transition: box-shadow 0.2s, background 0.2s;
 }
-button:hover{
-    transform: scale(1.05);
-    background-color: #0059b3;
-    box-shadow: 0 0 10px #0059b3;
+button:focus {
+    outline: 2px solid #00bfff;
+    outline-offset: 2px;
 }
 
 .footer {
@@ -106,8 +139,9 @@ button:hover{
     text-align: right;
     font-size: 0.8rem;
     color: #cce6ff;
+    position: relative;
+    z-index: 1;
 }
-
 
 @media (max-width: 768px) {
     .grid-item {
@@ -118,7 +152,7 @@ button:hover{
         font-size: 1.4rem;
     }
     .header {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        padding: 20px 8px;
     }
 }
-

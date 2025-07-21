@@ -12,7 +12,7 @@
 <body>
     <br>
     @include('layouts.error-pop')
-     <a href="{{ route('admins.index') }}" class="back-button" style="margin-left: 2rem;">&larr; Back to Admins</a>
+     <a href="{{ route('admins.index') }}" class="back-button">&larr; Back to Admins</a>
 
     <div class="form-container" id="register-form">
     <form action="{{ route('admin.register') }}" method="POST">

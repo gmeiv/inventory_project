@@ -1,6 +1,13 @@
-body {
+body, html {
+    height: auto !important;
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
+    background-image: url('../images/real.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(to bottom, #0a2c4d, #004080);
     color: white;
@@ -122,13 +129,6 @@ footer,
     display: none !important;
     height: 0 !important;
     background: none !important;
-}
-html, body {
-    height: auto !important;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #0a2c4d, #004080);
 }
 
 body::after {

@@ -14,19 +14,16 @@
     <a href="{{ url('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
     <div class="items-wrapper">
+        <h1 class="title">Admin Accounts</h1>
         <div class="header-row">
-            <h1 class="title">Admin Accounts</h1>
             <input type="text" id="searchInput" placeholder="Search by Name or Email..." onkeyup="filterTable()">
         </div>
-
         <a href="{{ route('admin_register') }}">
             <button class="add-button"><i class="fas fa-plus"></i> Add Admin</button>
         </a>
-
         @if (session('success'))
             <div class="alert">{{ session('success') }}</div>
         @endif
-
         <table class="items-table">
             <thead>
                 <tr>

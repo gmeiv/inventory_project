@@ -14,9 +14,8 @@
     <a href="{{ route('admin.dashboard') }}" class="back-button">&larr; Back to Dashboard</a>
 
     <div class="items-wrapper">
-        <div class="header-row">
-            <h1 class="title">Return Requests</h1>
-        </div>
+        <h1 class="title" style="text-align:center;">Return Requests</h1>
+        <div class="header-row" style="justify-content:center;"></div>
 
         @if (session('success'))
             <div class="alert">{{ session('success') }}</div>
