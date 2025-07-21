@@ -17,7 +17,6 @@
 
         <div class="grid-wrapper">
                 <div class="grid-container">
-            <button class="grid-item"><i class="fas fa-user-circle"></i> My Account</button>
             <form action="{{ route('admins.index') }}" method="GET" style="display:inline;">
                 <button type="submit" class="grid-item"><i class="fas fa-user-shield"></i> Employee</button>
             </form>
