@@ -24,7 +24,7 @@
                         <li><i class="fas fa-phone"></i> 09256768867</li>
                         <li><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/DIOARICCenter" target="_blank"> DIOARICCenter</a></li>
                         <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/DWMK7vHfXNqx6NG67" target="_blank"> Bulacan State University, Malolos, Philippines</a></li>
-                        <li><i class="fas fa-clock"></i> Tuesday - Friday, 8:00 AM to 5:00 PM</li>
+                        <li><i class="fas fa-clock"></i> Monday - Friday, 8:00 AM to 5:00 PM</li>
                     </ul>
                 </div>
             </td>
